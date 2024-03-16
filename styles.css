@@ -1,0 +1,71 @@
+body {
+    background-image: url(./background.jpg);
+    background-size: 100% 100%;  /* 背景图片全窗口拉伸显示 */
+    background-repeat: no-repeat;  /* 背景图片全窗口拉伸显示 */
+    background-position: center center;  /* 背景图片全窗口拉伸显示 */
+    text-align: center;  /* 文字居中显示 */
+    width: 100%;  /* 网页宽度（相对于窗口宽度） */
+    height: 100%;  /* 网页高度（相对于窗口高度） */
+    margin: 0 auto;
+    font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
+    color: #eeeeee; /* 字体颜色 */
+    overflow: hidden;  /* 隐藏滚动条 */
+}
+
+html, body {
+    height: 100%;
+}
+#winnerContainer {
+    
+    height: 100%;  /* 抽奖区域高度，显示为全屏 */
+    overflow-y: scroll;  /* 抽奖区域允许上下滚动 */
+    margin: 0px;
+    display: flex;
+    text-align: center;
+    align-items: center;  /* 抽奖区域内上下居中 */
+    justify-content: center;  /* 抽奖区域内左右居中 */
+}
+#winners {
+    width: 90%;
+}
+
+.winner-box {
+    display: inline-block;
+    padding: 10px;
+    margin: 10px;
+    border: 0px solid green;
+    border-radius: 20px;  /* 中奖人名字方框背景圆角半径 */
+    font-size: 36px;  /* 中奖人名字方框字体大小 */
+    font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
+    color: green;  /* 中奖人名字字体颜色 */
+    min-width: 180px;  /* 中奖人名字方框最小宽度 */
+    background-color: #d6d6d6;  /* 中奖人名字方框背景颜色 */
+    opacity: 80%;  /* 中奖人名字方框不透明度 */
+}
+.bottom{
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    min-width: 800px;
+}
+
+input {
+    width: 60px;
+    font-size: 26px;
+    font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
+}
+
+button {
+    background: #555555; /* 底部按钮背景颜色 */
+    font-size: 24px; /* 底部按钮字体大小 */
+    font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
+    color: white; /* 底部按钮字体颜色 */
+    border-radius: 50px;  /* 底部按钮圆角半径 */
+    border: 1px solid ;  /* 底部按钮边框宽度 */
+    padding: 10px;
+    margin: 10px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    width: 150px;  /* 底部按钮宽度 */
+    opacity: 80%;  /* 底部按钮不透明度 */
+}

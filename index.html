@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <title>随机抽奖</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Spark Wu">
+    <meta name="viewport" content="width=device-width, initial-scale=0.45">
+    <link rel="icon" href="./favicon.ico">
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./scripts.js" defer></script>
+
+</head>
+<body>
+     <div id="winnerContainer">
+        <div id="winners"></div>
+    </div>
+
+    <div class = bottom>
+        <button id = "typeBtn" onclick="typetNames()" title="请使用逗号来间隔多个候选人名字，不要出现重复的名字。如果人数较多，建议使用“导入名单”按钮。">输入名单</button>
+        <input id="fileInput" type="file" accept=".txt" style="display: none;">
+        <button id = "importBtn" onclick="importNames()" title="支持导入 txt 纯文本文件，请在 txt 中通过换行或者逗号来间隔多个候选人名字，不要出现重复的名字。如果人数较少，也可以使用“输入名单”按钮。">导入名单</button>
+        <label id="numWinners" style="font-size: 26px; display: none;" title="设置本轮抽奖的中奖人数量，请不要设置得高于总人数。">中奖人数</label>
+        <input id="numInput" type="number" min="1" value="1" style="opacity: 75%; " title="设置本轮抽奖的中奖人数量，请不要设置得高于总人数">
+        <label id="numAll" style="font-size: 26px;" title="目前总人数">/0</label>
+        <button id = "startBtn" onclick="startDrawing()" title="设置名单后，点击开始按钮或者按下键盘空格键以开始抽奖，屏幕上会滚动随机显示对应数量的中奖人。点击停止按钮或者按下键盘空格键以停止，中奖人固定不再变化，视为中奖。">开始</button>
+        <button id = "removeBtn" onclick="removeWinners()" title="导出一个以当前时间为文件名的 txt 文档，其中包含当前中奖的名单和尚未中奖的名单，同时将已经中奖的名单从总名单中移除，以避免重复中奖。">导出并移除</button>
+    </div>
+    <script defer src="./script.js" ></script>
+</body>
+</html>
