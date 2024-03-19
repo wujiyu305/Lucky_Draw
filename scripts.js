@@ -54,7 +54,6 @@ function importNames() {    //导入名单
 
 function startDrawing() {    //开始抽奖
     if (running == 0){    //确定当前未在抽奖中
-        running = 1;    //首先将抽奖 Indicator 打开
         const numInput = document.getElementById('numInput');
         const numWinners = parseInt(numInput.value);    //获取设置的中奖人数并 Int 化
 
@@ -73,6 +72,7 @@ function startDrawing() {    //开始抽奖
             return;
         }
         
+        running = 1;    //将抽奖 Indicator 打开
         toggleButtonAvailability('typeBtn');    //开始抽奖时禁用输入名单按钮
         toggleButtonAvailability('importBtn');    //开始抽奖时禁用导入名单按钮
         toggleButtonAvailability('removeBtn');    //开始抽奖时禁用移除按钮
