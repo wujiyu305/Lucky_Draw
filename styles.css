@@ -60,6 +60,7 @@ button {
     font-size: 24px; /* 底部按钮字体大小 */
     font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
     color: white; /* 底部按钮字体颜色 */
+    cursor: pointer;
     border-radius: 50px;  /* 底部按钮圆角半径 */
     border: 1px solid ;  /* 底部按钮边框宽度 */
     padding: 10px;
