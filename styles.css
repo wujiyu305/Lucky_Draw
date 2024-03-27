@@ -43,6 +43,25 @@ html, body {
     background-color: #d6d6d6;  /* 中奖人名字方框背景颜色 */
     opacity: 80%;  /* 中奖人名字方框不透明度 */
 }
+
+.winner-box-large {
+    margin: 20px;
+    font-size: 48px;  /* 中奖人名字方框字体大小 */
+    min-width: 250px;  /* 中奖人名字方框最小宽度 */
+}
+
+.winner-box-xlarge {
+    margin: 25px;
+    font-size: 64px;  /* 中奖人名字方框字体大小 */
+    min-width: 280px;  /* 中奖人名字方框最小宽度 */
+}
+
+.winner-box-small {
+    font-size: 30px;  /* 中奖人名字方框字体大小 */
+    min-width: 150px;  /* 中奖人名字方框最小宽度 */
+    border-radius: 15px;  /* 中奖人名字方框背景圆角半径 */
+}
+
 .bottom{
     position: fixed;
     bottom: 10px;

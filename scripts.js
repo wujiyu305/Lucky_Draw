@@ -109,7 +109,6 @@ function stopDrawing() {    //停止抽奖
 
 function removeWinners() {    //移除中奖
     exportWinners();    //同时导出中奖
-    names = names.filter(name => !winners.includes(name));
     for (eachWinner of winners) {
         let index = names.indexOf(eachWinner);
         if (index !== -1) {
@@ -157,6 +156,15 @@ function displayWinners() {     //显示中奖人
     for (eachWinner of winners) {     // DIV 中逐一插入中间人的名字
         const winnerBox = document.createElement('div');
         winnerBox.classList.add('winner-box');
+        if (winners.length <= 3) {
+            winnerBox.classList.add('winner-box-xlarge');
+        }
+        else if (winners.length <= 10) { 
+            winnerBox.classList.add('winner-box-large');
+        }
+        else if (winners.length > 50) {
+            winnerBox.classList.add('winner-box-small');
+        }                               //根据中奖人数适当调整方框大小
         winnerBox.textContent = eachWinner;
         winnersDiv.appendChild(winnerBox);
     }
