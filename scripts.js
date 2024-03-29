@@ -19,6 +19,19 @@ function toggleButtonAvailability(buttonId) {    //切换按钮可用性
     }
 }
 
+function showInfo(showorhide) {
+    const info = document.getElementById('info');
+    if (showorhide == 'show'){
+        info.style.transform = 'scale(1)';
+        return
+    }
+    if (showorhide == 'hide'){
+        info.style.transform = 'scale(0)';
+        return
+    }
+    info.style.transform = info.style.transform == 'scale(1)' ? 'scale(0)' : 'scale(1)';
+}
+
 function typetNames() {    //输入名单
     const contents = prompt('请输入抽奖名单，以逗号间隔多个名字。\n若有重复名字，将自动保留其中一个。');
     names = contents.split(/[,|，]/).map(name => name.trim()).filter(name => name !== '');    //支持中英文逗号间隔
@@ -63,7 +76,8 @@ function startDrawing() {    //开始抽奖
         }
         
         if (names.length == 0) {    //尚未设置名单的时候开始抽奖，则显示网页说明。
-            alert("抽奖名单现在是空的哦。 \n\n 本网页使用说明： \n\n 1. 首先请使用“输入名单”设置候选名单，请使用逗号来间隔多个候选人。若人数较多，建议使用“导入名单”，支持导入 txt 文本文件，文件中可使用换行或者逗号来间隔多个候选人。若有重复名字，将自动保留其中一个。 \n\n 2. 在输入或者导入名单成功后，网页上会自动显示名单的总人数，然后请设置本轮抽奖数量，请不要设置得高于总人数。 \n\n 3. 点击“开始”以开始抽奖（支持使用键盘空格键），屏幕上会滚动随机显示对应数量的中奖人。点击“停止”以停止滚动（支持使用键盘空格键），此时中奖人固定不再变化，视为中奖。 \n\n 4. 使用“导出并移除”可以导出一个以当前时间为文件名的 txt 文档，其中包含当前中奖的名单和尚未中奖的名单，同时会将已经中奖的名单从总名单中移除，以避免重复中奖。");
+            alert("抽奖名单现在是空的哦。");
+            showInfo('show');
             return;
         }
         
@@ -72,7 +86,13 @@ function startDrawing() {    //开始抽奖
             return;
         }
         
+        if (numWinners < 0) {    //中奖人数是负数
+            alert('设置的中奖人数不能是负数哦。');
+            return;
+        }
+        
         running = 1;    //将抽奖 Indicator 打开
+        showInfo('hide');
         toggleButtonAvailability('typeBtn');    //开始抽奖时禁用输入名单按钮
         toggleButtonAvailability('importBtn');    //开始抽奖时禁用导入名单按钮
         toggleButtonAvailability('removeBtn');    //开始抽奖时禁用移除按钮
@@ -149,22 +169,37 @@ function exportWinners() {
 }
 
 
-function displayWinners() {     //显示中奖人
+ function displayWinners() {     //显示中奖人
     const winnersDiv = document.getElementById('winners');
     winnersDiv.innerHTML = '';
 
     for (eachWinner of winners) {     // DIV 中逐一插入中间人的名字
         const winnerBox = document.createElement('div');
         winnerBox.classList.add('winner-box');
-        if (winners.length <= 3) {
-            winnerBox.classList.add('winner-box-xlarge');
+        if (winners.length >= 100) {
+            winnerBox.classList.add('winner-box-100');
         }
-        else if (winners.length <= 10) { 
-            winnerBox.classList.add('winner-box-large');
+        else if (winners.length >= 80) { 
+            winnerBox.classList.add('winner-box-80');
         }
-        else if (winners.length > 50) {
-            winnerBox.classList.add('winner-box-small');
-        }                               //根据中奖人数适当调整方框大小
+        else if (winners.length >= 50) { 
+            winnerBox.classList.add('winner-box-50');
+        }
+        else if (winners.length >= 30) { 
+            winnerBox.classList.add('winner-box-30');
+        }
+        else if (winners.length >= 15) { 
+            winnerBox.classList.add('winner-box-15');
+        }
+        else if (winners.length >= 10) { 
+            winnerBox.classList.add('winner-box-10');
+        }
+        else if (winners.length >= 5) { 
+            winnerBox.classList.add('winner-box-5');
+        }
+        else if (winners.length >= 3) { 
+            winnerBox.classList.add('winner-box-3');
+        }                             //根据中奖人数适当调整方框大小
         winnerBox.textContent = eachWinner;
         winnersDiv.appendChild(winnerBox);
     }

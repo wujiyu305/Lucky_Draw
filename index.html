@@ -10,11 +10,23 @@
 
 </head>
 <body>
+    <header>
+        <div id="info">
+            <h1>本网页使用说明</h1>
+            <ol>
+                <li><p>首先请使用“输入名单”设置候选名单，请使用逗号来间隔多个候选人。若人数较多，建议使用“导入名单”，支持导入 txt 文本文件，文件中可使用换行或者逗号来间隔多个候选人。若有重复名字，将自动保留其中一个。</p></li>
+                <li><p>在输入或者导入名单成功后，网页上会自动显示名单的总人数，然后请设置本轮抽奖数量，请不要设置得高于总人数。</p></li>
+                <li><p>点击“开始”以开始抽奖（支持使用键盘空格键），屏幕上会滚动随机显示对应数量的中奖人。点击“停止”以停止滚动（支持使用键盘空格键），此时中奖人固定不再变化，视为中奖。</p></li>
+                <li><p>使用“导出并移除”可以导出一个以当前时间为文件名的 txt 文档，其中包含当前中奖的名单和尚未中奖的名单，同时会将已经中奖的名单从总名单中移除，以避免重复中奖。</p></li>
+            </ol>
+        </div>
+        <p id="infoBotton" title="使用说明" onclick="showInfo()">ⓘ</p>
+    </header>
      <div id="winnerContainer">
         <div id="winners"></div>
     </div>
 
-    <div class = bottom>
+    <footer>
         <button id = "typeBtn" onclick="typetNames()" title="请使用逗号来间隔多个候选人名字，不要出现重复的名字。如果人数较多，建议使用“导入名单”按钮。">输入名单</button>
         <input id="fileInput" type="file" accept=".txt" style="display: none;">
         <button id = "importBtn" onclick="importNames()" title="支持导入 txt 纯文本文件，请在 txt 中通过换行或者逗号来间隔多个候选人名字，不要出现重复的名字。如果人数较少，也可以使用“输入名单”按钮。">导入名单</button>
@@ -23,7 +35,7 @@
         <label id="numAll" style="font-size: 26px;" title="目前总人数">/0</label>
         <button id = "startBtn" onclick="startDrawing()" title="设置名单后，点击开始按钮或者按下键盘空格键以开始抽奖，屏幕上会滚动随机显示对应数量的中奖人。点击停止按钮或者按下键盘空格键以停止，中奖人固定不再变化，视为中奖。">开始</button>
         <button id = "removeBtn" onclick="removeWinners()" title="导出一个以当前时间为文件名的 txt 文档，其中包含当前中奖的名单和尚未中奖的名单，同时将已经中奖的名单从总名单中移除，以避免重复中奖。">导出并移除</button>
-    </div>
+    </footer>
     <script defer src="scripts.js" ></script>
 </body>
 </html>
