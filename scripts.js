@@ -72,6 +72,7 @@ function startDrawing() {    //开始抽奖
 
         if (numWinners != numInput.value){    //输入的中奖人数与 Int 化后的人数不一致，说明输入的不是整数
             alert('请确保在中奖人数处仅输入了整数哦。');
+            showInfo('show');
             return;
         }
         
@@ -81,13 +82,15 @@ function startDrawing() {    //开始抽奖
             return;
         }
         
-        if (numWinners > names.length) {    //中奖人数比总人数高
-            alert('设置的中奖人数不能比总人数还高哦。');
+        if (numWinners >= names.length) {    //中奖人数比总人数高或相同
+            alert('请设置比总人数少的中奖人数。');
+            showInfo('show');
             return;
         }
         
-        if (numWinners < 0) {    //中奖人数是负数
-            alert('设置的中奖人数不能是负数哦。');
+        if (numWinners <= 0) {    //中奖人数不是正数
+            alert('请设置大于 1 的中奖人数。');
+            showInfo('show');
             return;
         }
         
