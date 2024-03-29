@@ -52,15 +52,6 @@ li {
     text-align: left;
     font-size: 20px;
 }
-.animate {
-    transform: scale(1);
-    opacity: 1;
-    transition: transform 3s, opacity 3s;
-}
-.hide {
-    transform: scale(0);
-    opacity: 0;
-}
 #winnerContainer {
     
     height: 100%;  /* 抽奖区域高度，显示为全屏 */
