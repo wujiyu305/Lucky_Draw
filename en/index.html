@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <title>Lucky Draw</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Spark Wu">
+    <meta name="viewport" content="width=device-width, initial-scale=0.40">
+    <link rel="icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles.css">
+
+</head>
+<body>
+    <header>
+        <div id="info">
+            <h1>Use Guide</h1>
+            <p><a href="../">中文</a> | English</p>
+            <ol>
+                <li><p>Use "Input List" to input candidate names, seperate miltiple names with comma. If got a big list, it was suggested to use "Import List", it could import candidates from a txt file, seperate multiple names with comma or new line. Duplicated names would be auto-removed.</p></li>
+                <li><p>The number of total names would show after list set. Then please input the number of winners this this round.</p></li>
+                <li><p>Hit "Start", winner names would appear on screen and change quickly. Hit "Stop", name would stop changing and these names are winners.</p></li>
+                <li><p>You can use the Space key on keyboard to Start/Stop.</p></li>
+                <li><p>Use "Exp & Rem" (Export & Remove) to export a txt file names under current time, which contains winners for this round and non-winner names. And winners would be removed to prevent them from being winner again for next round.</p></li>
+            </ol>
+            <p>Spark Presents</a></p>
+        </div>
+        <p id="infoBotton" title="Use Guide" onclick="showInfo()"><b>i</b></p>
+    </header>
+    
+    <div id="winners"></div>
+
+    <footer>
+        <button id = "typeBtn" onclick="typetNames()" title="Seperate miltiple names with comma. If got a big list, it was suggested to use “Import List”">Input List</button>
+        <input id="fileInput" type="file" accept=".txt" style="display: none;">
+        <button id = "importBtn" onclick="importNames()" title="Import candidate names from txt file, seperate miltiple names with comma or new line. You can use “Input List” for small list.">Import List</button>
+        <input id="numInput" type="number" min="1" value="1" step="1" title="Number of winners this this round.">
+        <label id="numAll" title="Total names">/0</label>
+        <button id = "startBtn" onclick="startDrawing()" title="Hit “Start”, winner names would appear on screen and change quickly. Hit “Stop”, name would stop changing and these names are winners. You can use the Space key on keyboard to Start/Stop.">Start</button>
+        <button id = "removeBtn" onclick="removeWinners()" title="Export a txt file names under current time, which contains winners for this round and non-winner names. And winners would be removed to prevent them from being winner again for next round.">Exp & Rem</button>
+    </footer>
+    <script defer src="scripts.js" ></script>
+</body>
+</html>
