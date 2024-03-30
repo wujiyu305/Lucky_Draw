@@ -26,7 +26,6 @@ body {
     position: fixed;
     top: 10px;
     right: 10px;
-    transform: scale(0);
     transform-origin: top right;
     transition: transform 0.5s;
     z-index: 200;

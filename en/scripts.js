@@ -11,6 +11,11 @@ function listener() {
     window.addEventListener('resize', function() {
         displayWinners();
     });
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            showInfo('hide');
+        }, 3000);
+    });
 }
 
 function toggleButtonAvailability(buttonId) {

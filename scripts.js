@@ -11,6 +11,11 @@ function listener() {
     window.addEventListener('resize', function() {
         displayWinners();     // 在窗口大小变化时缩放 winnerBox
     });
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            showInfo('hide');
+        }, 3000); // 网页加载完后 3 秒延迟隐藏说明窗口
+    });
 }
 
 function toggleButtonAvailability(buttonId) {    //切换按钮可用性
