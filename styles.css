@@ -49,15 +49,35 @@ body {
 h1 {
     text-align: center;
     font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
+    font-size: 32px;
+}
+h2 {
+    text-align: center;
+    font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
+    font-size: 20px;
+    font-weight: normal;
+}
+a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 80%);
 }
 li {
     text-align: left;
     font-size: 20px;
     font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
 }
-a {
-    text-decoration: none;
-    color: rgba(255, 255, 255, 80%);
+li > p {
+    text-align: left;
+    font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
+    font-size: 20px;
+}
+div > p {
+    text-align: center;
+    font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
+    font-size: 18px;
+}
+#winners {
+    overflow: hidden;  /* 隐藏滚动条 */
 }
 .winnerBox {
     display: inline-block;
