@@ -20,7 +20,7 @@ html, body {
     width: 95%;
     min-width: 400px;
     max-width: 800px;
-    background-color: rgba(68, 68, 68, 50%);
+    background-color: rgba(68, 68, 68, 75%);
     font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
     color: rgba(255, 255, 255, 80%);
     border-radius: 20px;
