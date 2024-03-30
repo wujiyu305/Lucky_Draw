@@ -179,7 +179,7 @@ function exportWinners() {
     const winnersDiv = document.getElementById('winners');
     winnersDiv.innerHTML = '';
 
-    for (eachWinner of winners) {     // DIV 中逐一插入中间人的名字
+    for (eachWinner of winners) {     // DIV 中逐一插入奖人的名字
         const winnerBox = document.createElement('div');
         winnerBox.classList.add('winnerBox');
         let windowFactor = Math.sqrt((window.innerWidth * window.innerHeight) / (1280 * 800));   // 以 1280 x 800 的窗口大小为基准按比例缩放
