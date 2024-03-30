@@ -143,7 +143,7 @@ function removeWinners() {    //移除中奖
     }
     winners = [];
     displayWinners();
-    document.getElementById('numAll').innerHTML = "/" + names.length;;    //记得显示移除后的总人数
+    document.getElementById('numAll').innerHTML = "/" + names.length;    //记得显示移除后的总人数
 }
 
 function exportWinners() {
@@ -181,7 +181,7 @@ function exportWinners() {
 
     for (eachWinner of winners) {     // DIV 中逐一插入中间人的名字
         const winnerBox = document.createElement('div');
-        winnerBox.classList.add('winner-box');
+        winnerBox.classList.add('winnerBox');
         let windowFactor = Math.sqrt((window.innerWidth * window.innerHeight) / (1280 * 800));   // 以 1280 x 800 的窗口大小为基准按比例缩放
         if (winners.length >= 10) {
             let scaleFactor =  Math.sqrt(10 / winners.length);    // 以 10 人中奖的的 Box 大小为基准按比例缩放
