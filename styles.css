@@ -9,7 +9,7 @@ body {
     height: 100%;  /* 网页高度（相对于窗口高度） */
     margin: 0 auto;
     font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
-    color: #eeeeee; /* 字体颜色 */
+    color: rgba(255, 255, 255, 80%); /* 字体颜色 */
     overflow: hidden;  /* 隐藏滚动条 */
 }
 
@@ -20,10 +20,11 @@ html, body {
     width: 95%;
     min-width: 400px;
     max-width: 800px;
-    background-color: #444444;
+    background-color: rgba(68, 68, 68, 50%);
+    font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
+    color: rgba(255, 255, 255, 80%);
     border-radius: 20px;
     padding: 5px;
-    opacity: 80%;
     display: block;
     position: fixed;
     top: 10px;
@@ -42,15 +43,19 @@ html, body {
     top: 15px;
     right: 12px;
     font-size: 24px;
+    font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
+    color: rgba(255, 255, 255, 80%);
     cursor: pointer;
     z-index: 201;
 }
 h1 {
     text-align: center;
+    font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
 }
 li {
     text-align: left;
     font-size: 20px;
+    font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
 }
 #winnerContainer {
     
@@ -70,14 +75,12 @@ li {
     display: inline-block;
     padding: 10px;
     margin: 30px;
-    border: 0px solid green;
     border-radius: 30px;  /* 中奖人名字方框背景圆角半径 */
     font-size: 96px;  /* 中奖人名字方框字体大小 */
     font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
-    color: green;  /* 中奖人名字字体颜色 */
+    color: rgba(0, 128, 0, 90%);  /* 中奖人名字字体颜色 */
     min-width: 500px;  /* 中奖人名字方框最小宽度 */
-    background-color: #d6d6d6;  /* 中奖人名字方框背景颜色 */
-    opacity: 80%;  /* 中奖人名字方框不透明度 */
+    background-color: rgba(255, 255, 255, 60%);  /* 中奖人名字方框背景颜色 */
 }
 
 .winner-box-3 {
@@ -94,48 +97,6 @@ li {
     border-radius: 20px;
 }
 
-.winner-box-10 {
-    margin: 18px;
-    font-size: 58px;
-    min-width: 260px;
-    border-radius: 18px;
-}
-
-.winner-box-15 {
-    margin: 15px;
-    font-size: 40px;
-    min-width: 200px;
-    border-radius: 15px;
-}
-
-.winner-box-30 {
-    margin: 12px;
-    font-size: 36px;
-    min-width: 180px;
-    border-radius: 12px;
-}
-
-.winner-box-50 {
-    margin: 10px;
-    font-size: 26px;
-    min-width: 150px;
-    border-radius: 10px;
-}
-
-.winner-box-80 {
-    margin: 10px;
-    font-size: 24px;
-    min-width: 130px;
-    border-radius: 10px;
-}
-
-.winner-box-100 {
-    margin: 10px;
-    font-size: 16px;
-    min-width: 100px;
-    border-radius: 8px;
-}
-
 footer{
     position: fixed;
     bottom: 0;
@@ -150,10 +111,10 @@ input {
 }
 
 button {
-    background: #555555; /* 底部按钮背景颜色 */
+    background-color: rgba(68, 68, 68, 60%);; /* 底部按钮背景颜色 */
+    color: rgba(255, 255, 255, 80%);/* 底部按钮字体颜色 */
     font-size: 24px; /* 底部按钮字体大小 */
     font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
-    color: white; /* 底部按钮字体颜色 */
     cursor: pointer;
     border-radius: 50px;  /* 底部按钮圆角半径 */
     border-style: none;
@@ -162,5 +123,4 @@ button {
     margin-top: 5px;
     margin-bottom: 5px;
     width: 150px;  /* 底部按钮宽度 */
-    opacity: 80%;  /* 底部按钮不透明度 */
 }
