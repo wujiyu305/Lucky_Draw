@@ -28,7 +28,7 @@ body {
     right: 10px;
     transform-origin: top right;
     transition: transform 0.5s;
-    z-index: 200;
+    z-index: 99;
 }
 #infoBotton {
     display: block;
@@ -44,7 +44,7 @@ body {
     cursor: pointer;
     border: 2px solid rgba(255, 255, 255, 80%);
     border-radius: 20px;
-    z-index: 201;
+    z-index: 100;
 }
 h1 {
     text-align: center;
