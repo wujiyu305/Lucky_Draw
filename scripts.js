@@ -2,11 +2,14 @@ let names = [];
 let winners = [];
 let running = 0;
 let interval;
-spaceListener();
+listener();
 
-function spaceListener() {    //监听空格键来触发开始抽奖
-    document.addEventListener('keydown',function(event){
-        if(event.key ==' '){startDrawing();}
+function listener() {
+    document.addEventListener('keydown', function(event){
+        if(event.key ==' '){startDrawing();}       //监听空格键来触发开始抽奖
+    });
+    window.addEventListener('resize', function() {
+        displayWinners();     // 在窗口大小变化时缩放 winnerBox
     });
 }
 
@@ -179,19 +182,32 @@ function exportWinners() {
     for (eachWinner of winners) {     // DIV 中逐一插入中间人的名字
         const winnerBox = document.createElement('div');
         winnerBox.classList.add('winner-box');
-        let scaleFactor =  Math.sqrt(10 / winners.length);
+        let windowFactor = Math.sqrt((window.innerWidth * window.innerHeight) / (1280 * 700));   // 以 1280 x 700 的窗口大小为基准按比例缩放
         if (winners.length >= 10) {
-            winnerBox.style.fontSize = 60 * scaleFactor +'px'; 
-            winnerBox.style.margin = 20 * scaleFactor +'px'; 
-            winnerBox.style.minWidth = 280 * scaleFactor +'px'; 
-            winnerBox.style.borderRadius = 20 * Math.sqrt(scaleFactor) +'px'; 
-        }                              //中奖人大于 10 的时候，自动无极计算方框大小
+            let scaleFactor =  Math.sqrt(10 / winners.length);    // 以 10 人中奖的的 Box 大小为基准按比例缩放
+            winnerBox.style.fontSize = 60 * scaleFactor * windowFactor +'px'; 
+            winnerBox.style.margin = 20 * scaleFactor * windowFactor +'px'; 
+            winnerBox.style.minWidth = 280 * scaleFactor * windowFactor +'px'; 
+            winnerBox.style.borderRadius = 20 * Math.sqrt(scaleFactor) * windowFactor +'px'; 
+        }
         else if (winners.length >= 5) {
-            winnerBox.classList.add('winner-box-5');
+            winnerBox.style.fontSize = 64 * windowFactor +'px'; 
+            winnerBox.style.margin = 20 * windowFactor +'px'; 
+            winnerBox.style.minWidth = 320 * windowFactor +'px'; 
+            winnerBox.style.borderRadius = 20 * Math.sqrt(windowFactor) +'px'; 
         }
         else if (winners.length >= 3) {
-            winnerBox.classList.add('winner-box-3');
-        }                             //根据中奖人数较少人，设置固定的方框大小
+            winnerBox.style.fontSize = 62 * windowFactor +'px'; 
+            winnerBox.style.margin = 20 * windowFactor +'px'; 
+            winnerBox.style.minWidth = 360 * windowFactor +'px'; 
+            winnerBox.style.borderRadius = 20 * Math.sqrt(windowFactor) +'px'; 
+        }
+        else {
+            winnerBox.style.fontSize = 72 * windowFactor +'px'; 
+            winnerBox.style.margin = 25 * windowFactor +'px'; 
+            winnerBox.style.minWidth = 450 * windowFactor +'px'; 
+            winnerBox.style.borderRadius = 25 * Math.sqrt(windowFactor) +'px';
+        }
         winnerBox.textContent = eachWinner;
         winnersDiv.appendChild(winnerBox);
     }
