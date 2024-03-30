@@ -179,30 +179,19 @@ function exportWinners() {
     for (eachWinner of winners) {     // DIV 中逐一插入中间人的名字
         const winnerBox = document.createElement('div');
         winnerBox.classList.add('winner-box');
-        if (winners.length >= 100) {
-            winnerBox.classList.add('winner-box-100');
-        }
-        else if (winners.length >= 80) { 
-            winnerBox.classList.add('winner-box-80');
-        }
-        else if (winners.length >= 50) { 
-            winnerBox.classList.add('winner-box-50');
-        }
-        else if (winners.length >= 30) { 
-            winnerBox.classList.add('winner-box-30');
-        }
-        else if (winners.length >= 15) { 
-            winnerBox.classList.add('winner-box-15');
-        }
-        else if (winners.length >= 10) { 
-            winnerBox.classList.add('winner-box-10');
-        }
-        else if (winners.length >= 5) { 
+        let scaleFactor =  Math.sqrt(Math.sqrt(10 / winners.length));
+        if (winners.length >= 10) {
+            winnerBox.style.fontSize = 60*scaleFactor*scaleFactor +'px'; 
+            winnerBox.style.margin = 20*scaleFactor*scaleFactor +'px'; 
+            winnerBox.style.minWidth = 280*scaleFactor*scaleFactor +'px'; 
+            winnerBox.style.borderRadius = 20*scaleFactor +'px'; 
+        }                              //中奖人大于 10 的时候，自动无极计算方框大小
+        else if (winners.length >= 5) {
             winnerBox.classList.add('winner-box-5');
         }
-        else if (winners.length >= 3) { 
+        else if (winners.length >= 3) {
             winnerBox.classList.add('winner-box-3');
-        }                             //根据中奖人数适当调整方框大小
+        }                             //根据中奖人数较少人，设置固定的方框大小
         winnerBox.textContent = eachWinner;
         winnersDiv.appendChild(winnerBox);
     }
