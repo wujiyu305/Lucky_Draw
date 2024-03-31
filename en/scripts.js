@@ -120,7 +120,7 @@ function startDrawing() {
     document.getElementById('stopBtn').style.display = "";
     document.getElementById('nameBtn').style.display = "";
     document.getElementById('removeBtn').style.display = "none";
-    document.getElementById('removeBtn').disabled = true;
+    document.getElementById('nameBtn').disabled = true;
 
     interval = setInterval(function() {
         winners = [];
@@ -144,7 +144,7 @@ function stopDrawing() {
     document.getElementById('stopBtn').style.display = "none";
     document.getElementById('nameBtn').style.display = "none";
     document.getElementById('removeBtn').style.display = "";
-    document.getElementById('removeBtn').disabled = false;
+    document.getElementById('nameBtn').disabled = false;
 }
 
 function removeWinners() {

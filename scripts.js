@@ -120,7 +120,7 @@ function startDrawing() {    //开始抽奖
     document.getElementById('stopBtn').style.display = "";
     document.getElementById('nameBtn').style.display = "";
     document.getElementById('removeBtn').style.display = "none";
-    document.getElementById('removeBtn').disabled = true;    //开始抽奖时禁用移除按钮
+    document.getElementById('nameBtn').disabled = true;    //开始抽奖时禁用名单按钮
 
     interval = setInterval(function() {
         winners = [];    //清空中奖
@@ -144,7 +144,7 @@ function stopDrawing() {    //停止抽奖
     document.getElementById('stopBtn').style.display = "none";
     document.getElementById('nameBtn').style.display = "none";
     document.getElementById('removeBtn').style.display = "";
-    document.getElementById('removeBtn').disabled = false;    //停止抽奖时启用移除按钮
+    document.getElementById('nameBtn').disabled = false;    //停止抽奖时启用名单按钮
 }
 
 function removeWinners() {    //移除中奖
