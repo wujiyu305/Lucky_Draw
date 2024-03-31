@@ -1,30 +1,27 @@
 let names = []; 
 let winners = [];
-let running = 0;
 let interval;
 listener();
 
 function listener() {
-    document.addEventListener('keydown', function(event){
-        if(event.key ==' '){startDrawing();} 
-    });
-    window.addEventListener('resize', function() {
-        displayWinners();
-    });
     window.addEventListener('load', function() {
         setTimeout(function() {
             showInfo('hide');
         }, 3000);
     });
-}
-
-function toggleButtonAvailability(buttonId) {
-    if (document.getElementById(buttonId).disabled == true) {
-        document.getElementById(buttonId).disabled = false;
-    }
-    else {
-        document.getElementById(buttonId).disabled = true;
-    }
+    document.addEventListener('keydown', function(event){
+        if(event.key ==' ') {
+            if (document.getElementById('stopBtn').style.display == 'none') {
+                startDrawing();
+            }
+            else {
+                stopDrawing();
+            }
+        }
+    });
+    window.addEventListener('resize', function() {
+        displayWinners();
+    });
 }
 
 function showInfo(showorhide) {
@@ -40,102 +37,114 @@ function showInfo(showorhide) {
     info.style.transform = info.style.transform == 'scale(1)' ? 'scale(0)' : 'scale(1)';
 }
 
-function typetNames() {
-    const contents = prompt('Please input candidate names, seperated multiple names with comma. \nDuplicated names would be auto-removed.');
-    names = contents.split(/[,|，]/).map(name => name.trim()).filter(name => name !== '');
-        if (names.length > 0) {
-            names = Array.from(new Set(names));
-            document.getElementById('numAll').innerHTML = "/" + names.length;
-        } else {
-            alert("Failed to detect candidates, please check and try again.");
-        }
-}
-function importNames() {
-    const fileInput = document.getElementById('fileInput');
-    fileInput.addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        
-        reader.onload = function(event) {
-            const contents = event.target.result;
-            names = contents.split(/[,|，|\n]/).map(name => name.trim()).filter(name => name !== '');
-            if (names.length > 0) {
+function setNames() {
+    const choice = confirm("Would you like to inport candidates from a txt file?\n\nIf you just got a small list, you can just cancle to type the names.");
+    if (choice) {
+        const fileInput = document.getElementById('fileInput');
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const contents = event.target.result;
+                names = contents.split(/[,|，|\n]/).map(name => name.trim()).filter(name => name !== '');
                 names = Array.from(new Set(names));
-                document.getElementById('numAll').innerHTML = "/" + names.length;
-            } else {
-                alert("Failed to import, please check the txt file.");
-            }
-        };
-        
+                if (names.length > 1) {
+                    document.getElementById('nameBtn').innerHTML = names.length;
+                    document.getElementById('setBtn').style.display = "none";
+                    document.getElementById('nameBtn').style.display = "";
+                }
+                else if (names.length == 1) {
+                    alert("You don't need a luck draw if you got only 1 candidate.");
+                }
+                else {
+                    alert("Failed to set candidates from txt, please check the file.");
+                }
+            };
         reader.readAsText(file);
     });
-    
     fileInput.click();
+    }
+    else {
+        const contents = prompt('Please input candidate names, seperated multiple names with comma. \nDuplicated names would be auto-removed.');
+        names = contents.split(/[,|，|\n]/).map(name => name.trim()).filter(name => name !== '');
+        names = Array.from(new Set(names));
+        if (names.length > 1) {
+            document.getElementById('nameBtn').innerHTML = names.length;
+            document.getElementById('setBtn').style.display = "none";
+            document.getElementById('nameBtn').style.display = "";
+        }
+        else if (names.length == 1) {
+            alert("You don't need a luck draw if you got only 1 candidate.");
+        }
+        else {
+            alert("Failed to detect candidates, please check and try again.");
+        }
+    }
 }   
 
+function showNames() {
+    const allNames = names.join('\n');
+    alert('Below are candidates for now:\n\n' +allNames);
+}
+
 function startDrawing() {
-    if (running == 0){
-        const numInput = document.getElementById('numInput');
-        const numWinners = parseInt(numInput.value);
+    const numInput = document.getElementById('numInput');
+    const numWinners = parseInt(numInput.value);
 
-        if (numWinners != numInput.value){
-            alert('Please make sure to enter only integers for the number of winners.');
-            showInfo('show');
-            return;
-        }
-        
-        if (names.length == 0) {
-            alert("Candidate list is still empty.");
-            showInfo('show');
-            return;
-        }
-        
-        if (numWinners >= names.length) {
-            alert('Winners should be less than candidates.');
-            showInfo('show');
-            return;
-        }
-        
-        if (numWinners <= 0) {
-            alert('Please allow at least 1 winner');
-            showInfo('show');
-            return;
-        }
-        
-        running = 1;
-        showInfo('hide');
-        toggleButtonAvailability('typeBtn');
-        toggleButtonAvailability('importBtn');
-        toggleButtonAvailability('removeBtn');
-        document.getElementById('startBtn').innerHTML = "Stop";
+    if (numWinners != numInput.value){
+        alert('Please make sure to enter only integers for the number of winners.');
+        showInfo('show');
+        return;
+    }
+    
+    if (names.length == 0) {
+        alert("Candidate list is still empty.");
+        showInfo('show');
+        return;
+    }
+    
+    if (numWinners >= names.length) {
+        alert('Winners should be less than candidates.');
+        showInfo('show');
+        return;
+    }
+    
+    if (numWinners <= 0) {
+        alert('Please allow at least 1 winner');
+        showInfo('show');
+        return;
+    }
+    
+    showInfo('hide');
+    document.getElementById('startBtn').style.display = "none";
+    document.getElementById('stopBtn').style.display = "";
+    document.getElementById('nameBtn').style.display = "";
+    document.getElementById('removeBtn').style.display = "none";
+    document.getElementById('removeBtn').disabled = true;
 
-        interval = setInterval(function() {
-            winners = [];
+    interval = setInterval(function() {
+        winners = [];
+        
+        while (winners.length < numWinners) {
+            const randomIndex = Math.floor(Math.random() * names.length);
+            const winner = names[randomIndex];
             
-            while (winners.length < numWinners) {
-                const randomIndex = Math.floor(Math.random() * names.length);
-                const winner = names[randomIndex];
-                
-                if (!winners.includes(winner)) {
-                    winners.push(winner);
-                }
+            if (!winners.includes(winner)) {
+                winners.push(winner);
             }
-            
-            displayWinners();
-        }, 150);
-    }
-    else{
-        stopDrawing();
-    }
+        }
+        
+        displayWinners();
+    }, 150);
 }
 
 function stopDrawing() {
-    running = 0;
     clearInterval(interval);
-    toggleButtonAvailability('typeBtn');
-    toggleButtonAvailability('importBtn');
-    toggleButtonAvailability('removeBtn');
-    document.getElementById('startBtn').innerHTML = "Start";
+    document.getElementById('startBtn').style.display = "";
+    document.getElementById('stopBtn').style.display = "none";
+    document.getElementById('nameBtn').style.display = "none";
+    document.getElementById('removeBtn').style.display = "";
+    document.getElementById('removeBtn').disabled = false;
 }
 
 function removeWinners() {
@@ -148,12 +157,14 @@ function removeWinners() {
     }
     winners = [];
     displayWinners();
-    document.getElementById('numAll').innerHTML = "/" + names.length;
+    document.getElementById('nameBtn').innerHTML = names.length;
+    document.getElementById('nameBtn').style.display = "";
+    document.getElementById('removeBtn').style.display = "none";
 }
 
 function exportWinners() {
     if (winners.length == 0) {
-        alert("There is no winner yet.");
+        alert("There is no winner for this round yet.");
         return;
     }
 

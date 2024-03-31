@@ -7,7 +7,7 @@ body {
     background-size: cover;
     background-position: center center;
     text-align: center;  /* 文字居中显示 */
-    width: 90%;  /* 网页宽度（相对于窗口宽度） */
+    width: 95%;  /* 网页宽度（相对于窗口宽度） */
     height: 100vh;  /* 网页高度（相对于窗口高度） */
     margin: 0 auto;
     font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
@@ -87,25 +87,20 @@ div > p {
 
 footer{
     position: fixed;
-    bottom: 0;
+    bottom: 0px;
     width: 100%;
-    font-size: 26px;
-    font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
-    min-width: 850px;
-    color: rgba(255, 255, 255, 80%); /* 字体颜色 */
+    min-width: 400px;
 }
 
 input {
     width: 60px;
-    height: 40px;
+    height: 32px;
     font-size: 26px;
     font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
-    background-color: color(display-p3 0.251 0.6081 0.2548);
-    color: rgba(255, 255, 255, 100%); /* 字体颜色 */
-    border: 2px solid rgba(68, 68, 68, 60%);
+    border: 2px solid rgba(68, 68, 68, 70%);
     border-radius: 10px;
-    padding: 2px;
-    opacity: 80%;
+    padding: 5px;
+    opacity: 60%;
 }
 
 button {
@@ -121,4 +116,5 @@ button {
     margin-top: 5px;
     margin-bottom: 5px;
     width: 150px;  /* 底部按钮宽度 */
+    height: 50px;
 }
