@@ -91,11 +91,11 @@ footer{
     position: fixed;
     bottom: 0px;
     width: 100%;
-    min-width: 400px;
+    min-width: 430px;
 }
 
 input {
-    width: 60px;
+    width: 66px;
     height: 32px;
     font-size: 26px;
     font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
@@ -103,6 +103,7 @@ input {
     border-radius: 10px;
     padding: 5px;
     opacity: 60%;
+    text-align: center;
 }
 
 button {
