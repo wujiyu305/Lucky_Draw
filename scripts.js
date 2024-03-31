@@ -199,7 +199,7 @@ function exportWinners() {
         const winnerBox = document.createElement('div');
         winnerBox.classList.add('winnerBox');
         let scaleFactor = Math.sqrt((window.innerWidth * window.innerHeight) / (1440 * 800));   // 以 1440 * 800 的窗口大小为基准按比例缩放
-        scaleFactor = scaleFactor * Math.pow(3 / (names.reduce((acc, name) => acc + name.length, 0) / names.length), 0.35);   // 以平均每个名字 3 个字符为基准按比例缩放
+        scaleFactor = scaleFactor * Math.pow(3 / (names.reduce((acc, name) => acc + name.length, 0) / names.length), 0.2);   // 以平均每个名字 3 个字符为基准按比例缩放
         if (winners.length >= 10) {
             scaleFactor = scaleFactor * Math.pow((10 / winners.length), 0.4);    // 以 10 人中奖的的 Box 大小为基准按比例缩放
             winnerBox.style.fontSize = 64 * scaleFactor +'px';
