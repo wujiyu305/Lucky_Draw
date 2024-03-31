@@ -198,11 +198,12 @@ function exportWinners() {
     for (eachWinner of winners) {     // DIV 中逐一插入奖人的名字
         const winnerBox = document.createElement('div');
         winnerBox.classList.add('winnerBox');
-        let windowFactor = Math.sqrt((window.innerWidth * window.innerHeight) / (1280 * 800));   // 以 1280 x 800 的窗口大小为基准按比例缩放
+        let windowFactor = Math.sqrt((window.innerWidth * window.innerHeight) / (1440 * 800));   // 以 1400 * 800 的窗口大小为基准按比例缩放
         if (winners.length >= 10) {
-            let scaleFactor =  Math.sqrt(10 / winners.length);    // 以 10 人中奖的的 Box 大小为基准按比例缩放
+            let scaleFactor =  Math.pow((10 / winners.length), 0.4);    // 以 10 人中奖的的 Box 大小为基准按比例缩放
             winnerBox.style.fontSize = 60 * scaleFactor * windowFactor +'px'; 
             winnerBox.style.margin = 20 * scaleFactor * windowFactor +'px'; 
+            winnerBox.style.padding = 10 * scaleFactor * windowFactor +'px'; 
             winnerBox.style.minWidth = 280 * scaleFactor * windowFactor +'px'; 
             winnerBox.style.borderRadius = 20 * Math.sqrt(scaleFactor) * windowFactor +'px'; 
         }

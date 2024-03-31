@@ -198,11 +198,12 @@ function exportWinners() {
     for (eachWinner of winners) {
         const winnerBox = document.createElement('div');
         winnerBox.classList.add('winnerBox');
-        let windowFactor = Math.sqrt((window.innerWidth * window.innerHeight) / (1280 * 800));
+        let windowFactor = Math.sqrt((window.innerWidth * window.innerHeight) / (1440 * 800));
         if (winners.length >= 10) {
-            let scaleFactor =  Math.sqrt(10 / winners.length);
+            let scaleFactor =  Math.pow((10 / winners.length), 0.4);
             winnerBox.style.fontSize = 60 * scaleFactor * windowFactor +'px'; 
             winnerBox.style.margin = 20 * scaleFactor * windowFactor +'px'; 
+            winnerBox.style.padding = 10 * scaleFactor * windowFactor +'px'; 
             winnerBox.style.minWidth = 280 * scaleFactor * windowFactor +'px'; 
             winnerBox.style.borderRadius = 20 * Math.sqrt(scaleFactor) * windowFactor +'px'; 
         }

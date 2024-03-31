@@ -75,7 +75,7 @@ div > p {
 }
 #winners {
     overflow: hidden;  /* 隐藏滚动条 */
-    transform: translateY(-60px);
+    transform: translateY(-30px);
     max-height: calc(100vh - 60px);
 }
 .winnerBox {
