@@ -38,7 +38,7 @@ function showInfo(showorhide) {
 }
 
 function setNames() {
-    const choice = confirm("Would you like to inport candidates from a txt file?\n\nIf you just got a small list, you can just cancle to type the names.");
+    const choice = confirm("Would import candidates from a txt file.\n\nIf you just got a small list, you can just cancel to type in candidates.");
     if (choice) {
         const fileInput = document.getElementById('fileInput');
         fileInput.addEventListener('change', function(event) {
@@ -65,7 +65,7 @@ function setNames() {
     fileInput.click();
     }
     else {
-        const contents = prompt('Please input candidate names, seperated multiple names with comma. \nDuplicated names would be auto-removed.');
+        const contents = prompt('Please input candidate names.\nSeperated multiple names with comma.\nDuplicated names would be auto-removed.');
         names = contents.split(/[,|，|\n]/).map(name => name.trim()).filter(name => name !== '');
         names = Array.from(new Set(names));
         if (names.length > 1) {

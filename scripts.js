@@ -38,7 +38,7 @@ function showInfo(showorhide) {
 }
 
 function setNames() {    //导入名单
-    const choice = confirm("要从 txt 文件导入名单吗？\n\n如果人数较少，可取消以手动输入名单。");
+    const choice = confirm("即将从 txt 文件导入名单。\n\n如果人数较少，可取消以手动输入名单。");
     if (choice) {
         const fileInput = document.getElementById('fileInput');
         fileInput.addEventListener('change', function(event) {
