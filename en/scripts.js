@@ -198,32 +198,29 @@ function exportWinners() {
     for (eachWinner of winners) {
         const winnerBox = document.createElement('div');
         winnerBox.classList.add('winnerBox');
-        let windowFactor = Math.sqrt((window.innerWidth * window.innerHeight) / (1440 * 800));
+        let scaleFactor = Math.sqrt((window.innerWidth * window.innerHeight) / (1440 * 800));
+        scaleFactor = scaleFactor * Math.pow(3 / (names.reduce((acc, name) => acc + name.length, 0) / names.length), 0.2);
         if (winners.length >= 10) {
-            let scaleFactor =  Math.pow((10 / winners.length), 0.4);
-            winnerBox.style.fontSize = 60 * scaleFactor * windowFactor +'px'; 
-            winnerBox.style.margin = 20 * scaleFactor * windowFactor +'px'; 
-            winnerBox.style.padding = 10 * scaleFactor * windowFactor +'px'; 
-            winnerBox.style.minWidth = 280 * scaleFactor * windowFactor +'px'; 
-            winnerBox.style.borderRadius = 20 * Math.sqrt(scaleFactor) * windowFactor +'px'; 
+            scaleFactor = scaleFactor * Math.pow((10 / winners.length), 0.4);
+            winnerBox.style.fontSize = 64 * scaleFactor +'px'; 
+            winnerBox.style.margin = 20 * scaleFactor +'px'; 
+            winnerBox.style.borderRadius = 20 * scaleFactor +'px'; 
+            winnerBox.style.padding = 10 * Math.pow(scaleFactor, 0.4) +'px ' + 40 * scaleFactor +'px'; 
         }
         else if (winners.length >= 5) {
-            winnerBox.style.fontSize = 64 * windowFactor +'px'; 
-            winnerBox.style.margin = 20 * windowFactor +'px'; 
-            winnerBox.style.minWidth = 320 * windowFactor +'px'; 
-            winnerBox.style.borderRadius = 20 * Math.sqrt(windowFactor) +'px'; 
+            winnerBox.style.fontSize = 68 * scaleFactor +'px'; 
+            winnerBox.style.margin = 22 * scaleFactor +'px'; 
+            winnerBox.style.borderRadius = 22 * scaleFactor +'px'; 
         }
         else if (winners.length >= 3) {
-            winnerBox.style.fontSize = 62 * windowFactor +'px'; 
-            winnerBox.style.margin = 20 * windowFactor +'px'; 
-            winnerBox.style.minWidth = 360 * windowFactor +'px'; 
-            winnerBox.style.borderRadius = 20 * Math.sqrt(windowFactor) +'px'; 
+            winnerBox.style.fontSize = 72 * scaleFactor +'px'; 
+            winnerBox.style.margin = 23 * scaleFactor +'px'; 
+            winnerBox.style.borderRadius = 23 * scaleFactor +'px'; 
         }
         else {
-            winnerBox.style.fontSize = 72 * windowFactor +'px'; 
-            winnerBox.style.margin = 25 * windowFactor +'px'; 
-            winnerBox.style.minWidth = 450 * windowFactor +'px'; 
-            winnerBox.style.borderRadius = 25 * Math.sqrt(windowFactor) +'px';
+            winnerBox.style.fontSize = 76 * scaleFactor +'px'; 
+            winnerBox.style.margin = 25 * scaleFactor +'px'; 
+            winnerBox.style.borderRadius = 25 * scaleFactor +'px';
         }
         winnerBox.textContent = eachWinner;
         winnersDiv.appendChild(winnerBox);

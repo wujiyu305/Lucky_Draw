@@ -80,11 +80,10 @@ div > p {
 }
 .winnerBox {
     display: inline-block;
-    padding: 10px;
+    padding: 10px 40px;
     margin: 25px;
     border-radius: 25px;  /* 中奖人名字方框背景圆角半径 */
     font-size: 72px;  /* 中奖人名字方框字体大小 */
-    min-width: 450px;  /* 中奖人名字方框最小宽度 */
     font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
     color: rgba(0, 128, 0, 90%);  /* 中奖人名字字体颜色 */
     background-color: rgba(255, 255, 255, 60%);  /* 中奖人名字方框背景颜色 */
