@@ -10,7 +10,8 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
     <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
     <link rel="stylesheet" href="styles.css">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
 </head>
 <body>
     <header>
@@ -28,6 +29,26 @@
             <p>Spark Presents</a></p>
         </div>
         <p id="infoBotton" title="使用说明" onclick="showInfo()"><b>i</b></p>
+        <div id="setting">
+            <h1>设置</h1>
+            <div>
+                <label>中奖人显示大小</label>
+                <input type="range" id="scale" min="0.5" max="1.5" step="0.01" value="1">
+                <label>中奖人滚动速度</label>
+                <input type="range" id="speed" min="0.5" max="1.5" step="0.01" value="1">
+                <label>导出 txt 文本</label>
+                <label class="switch">
+                    <input type="checkbox" id="txt" checked="true">
+                    <span class="checkbox"></span>
+                </label>
+                <label>导出 png 截图</label>
+                <label class="switch">
+                    <input type="checkbox" id="screenshot" >
+                    <span class="checkbox"></span>
+                </label>
+            </div>
+        </div>
+        <p id="settingBotton" title="设置" onclick="showSetting()"><b>S</b></p>
     </header>
     
     <div id="winners"></div>

@@ -2,12 +2,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: color(display-p3 0.1691 0.761 0.3293);
+    background-color: rgb(52, 194, 84);
     background-image: url(background.jpg);
     background-size: cover;
     background-position: center center;
     text-align: center;  /* 文字居中显示 */
-    width: 95%;  /* 网页宽度（相对于窗口宽度） */
+    width: 100vw;  /* 网页宽度（相对于窗口宽度） */
     min-width: 430px;
     height: 100vh;  /* 网页高度（相对于窗口高度） */
     margin: 0 auto;
@@ -50,10 +50,60 @@ body {
     z-index: 100;
     transition: 0.3s;
 }
-
 #infoBotton:hover{
     scale: 1.2;
 }
+
+#setting {
+    width: 320px;
+    max-height: calc(100vh - 80px);
+    background-color: rgba(68, 68, 68, 75%);
+    color: rgba(255, 255, 255, 80%);
+    border-radius: 20px;
+    padding: 5px;
+    display: block;
+    position: fixed;
+    top: 50px;
+    right: 10px;
+    transform: scale(0);
+    transform-origin: top right;
+    transition: transform 0.5s;
+    z-index: 99;
+    overflow-y: scroll;
+}
+#settingBotton {
+    display: block;
+    width: 28px;
+    height: 28px;
+    margin: 0;
+    position: fixed;
+    top: 55px;
+    right: 15px;
+    font-family: 'Courier New';
+    font-size: 25px;
+    color: rgba(255, 255, 255, 80%);
+    cursor: pointer;
+    border: 2px solid rgba(255, 255, 255, 80%);
+    border-radius: 20px;
+    z-index: 100;
+    transition: 0.3s;
+}
+#settingBotton:hover{
+    scale: 1.2;
+}
+
+#setting > div {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    align-items: center;
+    justify-content: center;
+}
+
+#setting > div > label {
+    font-size: 20px;
+    margin: 10px auto;
+}
+
 h1 {
     text-align: center;
     font-size: 32px;
@@ -79,9 +129,10 @@ div > p {
     font-size: 18px;
 }
 #winners {
-    overflow: hidden;  /* 隐藏滚动条 */
-    transform: translateY(-30px);
     max-height: calc(100vh - 60px);
+    width: 95%;
+    position: relative;
+    top: -30px;
 }
 .winnerBox {
     display: inline-block;
@@ -101,7 +152,7 @@ footer{
     min-width: 430px;
 }
 
-input {
+input[type=number] {
     width: 66px;
     height: 32px;
     font-size: 26px;
@@ -132,5 +183,68 @@ button {
 }
 
 button:hover{
-    scale: 1.1;
+    scale: 1.05;
+}
+
+
+/* 样式参考自 iOS 设置中的亮度调节滑块 */
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100px;
+    height: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.8;
+    transition: .2s;
+    border-radius: 10px;
+    margin: 20px auto;
+}
+input[type="range"]:hover {
+    opacity: 1;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+
+/* 样式参考自 iOS 设置中的开关 */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 28px;
+}
+.checkbox {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+.checkbox:before {
+    position: absolute;
+    content: "";
+    height: 24px;
+    width: 24px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+input:checked + .checkbox {
+    background-color: #00cc00;
+}
+input:checked + .checkbox:before {
+    transform: translateX(18px);
 }

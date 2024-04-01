@@ -1,13 +1,28 @@
 let names = [];
 let winners = [];
 let interval;
+let speed = 150;     //默认滚动速度 150 ms
+let pngwaiting = 1;
 listener();
 
 function listener() {
     window.addEventListener('load', function() {
+
+        /* 读取网址参数 */
+        const urlPara = new URLSearchParams(window.location.search);
+        if (urlPara.get('screenshot') == 'y') {
+            document.getElementById('screenshot').checked = true;
+        }
+        if (urlPara.get('txt') == 'n') {
+            document.getElementById('txt').checked = false;
+        }
+        document.getElementById('scale').value = urlPara.get('scale');
+        document.getElementById('speed').value = urlPara.get('speed');
+        
+        /* 网页加载完后 3 秒延迟隐藏说明窗口 */
         setTimeout(function() {
             showInfo('hide');
-        }, 3000); // 网页加载完后 3 秒延迟隐藏说明窗口
+        }, 3000);
     });
     document.addEventListener('keydown', function(event){
         if(event.key ==' ') {       //监听空格键来触发开始抽奖
@@ -26,8 +41,10 @@ function listener() {
 
 function showInfo(showorhide) {
     const info = document.getElementById('info');
+    const setting = document.getElementById('setting');
     if (showorhide == 'show'){
         info.style.transform = 'scale(1)';
+        setting.style.transform = 'scale(0)';
         return
     }
     if (showorhide == 'hide'){
@@ -35,6 +52,14 @@ function showInfo(showorhide) {
         return
     }
     info.style.transform = info.style.transform == 'scale(1)' ? 'scale(0)' : 'scale(1)';
+    setting.style.transform = 'scale(0)';
+}
+
+function showSetting(showorhide) {
+    const info = document.getElementById('info');
+    const setting = document.getElementById('setting');
+    setting.style.transform = setting.style.transform == 'scale(1)' ? 'scale(0)' : 'scale(1)';
+    info.style.transform = 'scale(0)';
 }
 
 function setNames() {    //导入名单
@@ -122,6 +147,7 @@ function startDrawing() {    //开始抽奖
     document.getElementById('removeBtn').style.display = "none";
     document.getElementById('nameBtn').disabled = true;    //开始抽奖时禁用名单按钮
 
+    let userspeed = document.getElementById('speed').value;       //获取用户设置的速度系数
     interval = setInterval(function() {
         winners = [];    //清空中奖
         
@@ -135,7 +161,52 @@ function startDrawing() {    //开始抽奖
         }
         
         displayWinners();
-    }, 150);     //刷新间隔 150 毫秒
+        userspeed = document.getElementById('speed').value;
+        clearInterval(interval);     // 清除当前定时器
+        interval = setInterval(arguments.callee, (speed / userspeed));     // 以动态获取用户设置的速度
+    }, (speed / userspeed));
+}
+
+
+function displayWinners() {     //显示中奖人
+    const winnersDiv = document.getElementById('winners');
+    winnersDiv.innerHTML = '';
+
+    for (eachWinner of winners) {     // DIV 中逐一插入奖人的名字
+        const winnerBox = document.createElement('div');
+        winnerBox.classList.add('winnerBox');
+        let scaleFactor = Math.sqrt((window.innerWidth * window.innerHeight) / (1440 * 800));   // 以 1440 * 800 的窗口大小为基准按比例缩放
+        scaleFactor = scaleFactor * Math.pow(3 / (names.reduce((acc, name) => acc + name.length, 0) / names.length), 0.2);   // 以平均每个名字 3 个字符为基准按比例缩放
+        scaleFactor = scaleFactor * document.getElementById('scale').value;        //引入用户设置的缩放系数
+        if (winners.length >= 10) {
+            speed = 150;
+            scaleFactor = scaleFactor * Math.pow((10 / winners.length), 0.4);    // 以 10 人中奖的的 Box 大小为基准按比例缩放
+            winnerBox.style.fontSize = 64 * scaleFactor +'px';
+            winnerBox.style.margin = 20 * scaleFactor +'px';
+            winnerBox.style.borderRadius = 20 * scaleFactor +'px';
+            winnerBox.style.padding = 10 * Math.pow(scaleFactor, 0.4) +'px ' + 40 * scaleFactor +'px';
+        }
+        else if (winners.length >= 5) {
+            speed = 150 * 0.9;
+            winnerBox.style.fontSize = 68 * scaleFactor +'px';
+            winnerBox.style.margin = 22 * scaleFactor +'px';
+            winnerBox.style.borderRadius = 22 * scaleFactor +'px';
+        }
+        else if (winners.length >= 3) {
+            speed = 150 * 0.7;
+            winnerBox.style.fontSize = 72 * scaleFactor +'px';
+            winnerBox.style.margin = 23 * scaleFactor +'px';
+            winnerBox.style.borderRadius = 23 * scaleFactor +'px';
+        }
+        else {
+            speed = 150 * 0.6;
+            winnerBox.style.fontSize = 76 * scaleFactor +'px';
+            winnerBox.style.margin = 25 * scaleFactor +'px';
+            winnerBox.style.borderRadius = 25 * scaleFactor +'px';
+        }
+        winnerBox.textContent = eachWinner;
+        winnersDiv.appendChild(winnerBox);
+    }
 }
 
 function stopDrawing() {    //停止抽奖
@@ -149,17 +220,20 @@ function stopDrawing() {    //停止抽奖
 
 function removeWinners() {    //移除中奖
     exportWinners();    //同时导出中奖
-    for (eachWinner of winners) {
-        let index = names.indexOf(eachWinner);
-        if (index !== -1) {
-            names.splice(index, 1);
+
+    setTimeout(function() {
+        for (eachWinner of winners) {
+            let index = names.indexOf(eachWinner);
+            if (index !== -1) {
+                names.splice(index, 1);
+            }
         }
-    }
-    winners = [];
-    displayWinners();
-    document.getElementById('nameBtn').innerHTML = names.length;    //更新总人数
-    document.getElementById('nameBtn').style.display = "";
-    document.getElementById('removeBtn').style.display = "none";
+        winners = [];
+        displayWinners();
+        document.getElementById('nameBtn').innerHTML = names.length;    //更新总人数
+        document.getElementById('nameBtn').style.display = "";
+        document.getElementById('removeBtn').style.display = "none";
+    }, 1000);
 }
 
 function exportWinners() {
@@ -175,54 +249,46 @@ function exportWinners() {
     ('0' + currentDate.getHours()).slice(-2) +
     ('0' + currentDate.getMinutes()).slice(-2) +
     ('0' + currentDate.getSeconds()).slice(-2);
-    
-    const winnersContent = winners.join('\n');  // 中奖人名单
-    const leftPoolContent = names.filter(name => !winners.includes(name)).join('\n'); // 尚未中奖人名单
-    const combinedContent = '********** 当轮中奖 **********\n\n' + winnersContent + '\n\n****************************' +'\n\n\n\n\n\n\n\n\n********** 尚未中奖 **********\n\n' + leftPoolContent;  // 整合中奖人名单和尚未中奖人的名单
 
-    const filename = timestamp + '.txt';  // 使用当前日期时间作为名单 txt 文件名
-    const element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(combinedContent));
-    element.setAttribute('download', filename);
-    element.style.display = 'none';
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-}
+    /* 截图导出功能 */
+    if (document.getElementById('screenshot').checked) {
+/*         html2canvas(document.body).then(function(canvas) {
+            const link = document.createElement('a');
+            document.body.appendChild(link);
+            link.download = timestamp + '.png'; // 使用当前日期时间作为截图文件名
+            link.href = canvas.toDataURL();
+            link.click();
+            document.body.removeChild(link);
+        }); */
+        htmlToImage.toPng(document.body).then(function (dataUrl) {
+            if (pngwaiting == 1) {
+                pngwaiting = 0;
+                htmlToImage.toPng(document.body).then(function () {
+                    setTimeout(50);
+                });
+            }
+            const link = document.createElement('a');
+            document.body.appendChild(link);
+            link.download = timestamp + '.png'; // 使用当前日期时间作为截图文件名
+            link.href = dataUrl;
+            link.click();
+            document.body.removeChild(link);
+        });
+    }
 
+    /* txt 导出功能 */
+    if (document.getElementById('txt').checked) {
+        const winnersContent = winners.join('\n');  // 中奖人名单
+        const leftPoolContent = names.filter(name => !winners.includes(name)).join('\n'); // 尚未中奖人名单
+        const combinedContent = '********** 当轮中奖 **********\n\n' + winnersContent + '\n\n****************************' +'\n\n\n\n\n\n\n\n\n********** 尚未中奖 **********\n\n' + leftPoolContent;  // 整合中奖人名单和尚未中奖人的名单
 
- function displayWinners() {     //显示中奖人
-    const winnersDiv = document.getElementById('winners');
-    winnersDiv.innerHTML = '';
-
-    for (eachWinner of winners) {     // DIV 中逐一插入奖人的名字
-        const winnerBox = document.createElement('div');
-        winnerBox.classList.add('winnerBox');
-        let scaleFactor = Math.sqrt((window.innerWidth * window.innerHeight) / (1440 * 800));   // 以 1440 * 800 的窗口大小为基准按比例缩放
-        scaleFactor = scaleFactor * Math.pow(3 / (names.reduce((acc, name) => acc + name.length, 0) / names.length), 0.2);   // 以平均每个名字 3 个字符为基准按比例缩放
-        if (winners.length >= 10) {
-            scaleFactor = scaleFactor * Math.pow((10 / winners.length), 0.4);    // 以 10 人中奖的的 Box 大小为基准按比例缩放
-            winnerBox.style.fontSize = 64 * scaleFactor +'px';
-            winnerBox.style.margin = 20 * scaleFactor +'px';
-            winnerBox.style.borderRadius = 20 * scaleFactor +'px';
-            winnerBox.style.padding = 10 * Math.pow(scaleFactor, 0.4) +'px ' + 40 * scaleFactor +'px';
-        }
-        else if (winners.length >= 5) {
-            winnerBox.style.fontSize = 68 * scaleFactor +'px';
-            winnerBox.style.margin = 22 * scaleFactor +'px';
-            winnerBox.style.borderRadius = 22 * scaleFactor +'px';
-        }
-        else if (winners.length >= 3) {
-            winnerBox.style.fontSize = 72 * scaleFactor +'px';
-            winnerBox.style.margin = 23 * scaleFactor +'px';
-            winnerBox.style.borderRadius = 23 * scaleFactor +'px';
-        }
-        else {
-            winnerBox.style.fontSize = 76 * scaleFactor +'px';
-            winnerBox.style.margin = 25 * scaleFactor +'px';
-            winnerBox.style.borderRadius = 25 * scaleFactor +'px';
-        }
-        winnerBox.textContent = eachWinner;
-        winnersDiv.appendChild(winnerBox);
+        const filename = timestamp + '.txt';  // 使用当前日期时间作为名单 txt 文件名
+        const element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(combinedContent));
+        element.setAttribute('download', filename);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
     }
 }
