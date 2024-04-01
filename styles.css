@@ -48,6 +48,11 @@ body {
     border: 2px solid rgba(255, 255, 255, 80%);
     border-radius: 20px;
     z-index: 100;
+    transition: 0.3s;
+}
+
+#infoBotton:hover{
+    scale: 1.2;
 }
 h1 {
     text-align: center;
@@ -122,4 +127,10 @@ button {
     margin-bottom: 5px;
     width: 150px;  /* 底部按钮宽度 */
     height: 50px;
+    transition: 0.3s;
+    transform-origin: bottom;
+}
+
+button:hover{
+    scale: 1.1;
 }
