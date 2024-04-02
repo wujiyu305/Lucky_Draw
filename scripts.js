@@ -34,6 +34,9 @@ function listener() {
             }
         }
     });
+    document.getElementById('scale').addEventListener('input', function() {
+        displayWinners();     // 调整大小滑块时缩放 winnerBox
+    });
     window.addEventListener('resize', function() {
         displayWinners();     // 在窗口大小变化时缩放 winnerBox
     });
@@ -243,7 +246,7 @@ function exportWinners() {
     }
 
     const currentDate = new Date();
-    const timestamp = currentDate.getFullYear() + '-' +
+    const timestamp = winners.length + ' winners - ' + currentDate.getFullYear() + '-' +
     ('0' + (currentDate.getMonth() + 1)).slice(-2) + '-' +
     ('0' + currentDate.getDate()).slice(-2) + '-' +
     ('0' + currentDate.getHours()).slice(-2) +
@@ -252,21 +255,16 @@ function exportWinners() {
 
     /* 截图导出功能 */
     if (document.getElementById('screenshot').checked) {
-/*         html2canvas(document.body).then(function(canvas) {
-            const link = document.createElement('a');
-            document.body.appendChild(link);
-            link.download = timestamp + '.png'; // 使用当前日期时间作为截图文件名
-            link.href = canvas.toDataURL();
-            link.click();
-            document.body.removeChild(link);
-        }); */
         htmlToImage.toPng(document.body).then(function (dataUrl) {
+
+            /* 网页加载后的第一次截图大概率不会有背景图，所以第一次的截图不要，等待 150 ms 第二次截图 */
             if (pngwaiting == 1) {
                 pngwaiting = 0;
                 htmlToImage.toPng(document.body).then(function () {
-                    setTimeout(50);
+                    setTimeout(150);
                 });
             }
+            /* 等待 150 ms 第二次截图 */
             const link = document.createElement('a');
             document.body.appendChild(link);
             link.download = timestamp + '.png'; // 使用当前日期时间作为截图文件名

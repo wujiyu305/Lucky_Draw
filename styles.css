@@ -2,7 +2,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(52, 194, 84);
+    background-color: color(display-p3 0.1691 0.761 0.3293);
     background-image: url(background.jpg);
     background-size: cover;
     background-position: center center;
@@ -133,6 +133,7 @@ div > p {
     width: 95%;
     position: relative;
     top: -30px;
+    overflow-y: scroll;
 }
 .winnerBox {
     display: inline-block;
