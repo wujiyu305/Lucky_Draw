@@ -19,6 +19,9 @@ function listener() {
         document.getElementById('scale').value = urlPara.get('scale');
         document.getElementById('speed').value = urlPara.get('speed');
         
+        /* 加载 String */
+        stringLoader();
+
         /* 网页加载完后 3 秒延迟隐藏说明窗口 */
         setTimeout(function() {
             showInfo('hide');
@@ -42,12 +45,85 @@ function listener() {
     });
 }
 
+function stringLoader() {
+
+    /* 多语言网页 String 设置区域 */
+    /* zh */
+    const string_pageTitle_zh = "幸运抽奖";
+    const string_infoTitle_zh = "使用说明";
+    const string_infoContent_zh = "<li><p>首先请使用“设置名单”设置候选名单，支持导入 txt 文本文件，文件中可使用换行或者逗号来间隔多个候选人。若有重复名字，会自动去重。</p></li><li><p>成功名单成功后，名单按钮自动显示名单的总人数，点击按钮显示详细名单。</p></li><li><p>然后请设置本轮抽奖数量，请设置得低于总人数。</p></li><li><p>点击“开始”以开始抽奖，屏幕上会滚动随机显示对应数量的中奖人。点击“停止”以停止滚动，此时中奖人固定不再变化，视为中奖。</p></li><li><p>支持使用键盘上的空格键触发开始/停止。</p></li><li><p>使用“导出并移除”导出一个以当前时间为文件名的 txt 文件，包含当前中奖的名单和尚未中奖的名单，同时会将已经中奖的名单从总名单中移除，避免重复中奖。</p></li>";
+    const string_settingsTitle_zh = "设置";
+    const string_winnerSize_zh = "中奖人显示大小";
+    const string_winnerSpeed_zh = "中奖人滚动速度";
+    const string_expTXT_zh = "导出 txt 文本";
+    const string_expPNG_zh = "导出 png 文本";
+    const string_startBtn_zh = "开始";
+    const string_startBtn_title_zh = "设置名单后，点击开始按钮或者按下键盘空格键以开始抽奖，屏幕上会滚动随机显示对应数量的中奖人。";
+    const string_stopBtn_zh = "停止";
+    const string_stopBtn_title_zh = "点击停止按钮或者按下键盘空格键以停止，中奖人固定不再变化，视为中奖。";
+    const string_numInput_title_zh = "设置本轮抽奖的中奖人数量，请设置得低于总人数。";
+    const string_setBtn_zh = "设置名单";
+    const string_setBtn_title_zh = "支持导入 txt 纯文本文件，请在 txt 中通过换行或者逗号来间隔多个候选人名字，不要出现重复的名字。如果人数较少，也可以输入名单。";
+    const string_nameBtn_zh = "显示名单";
+    const string_nameBtn_title_zh = "显示当前奖池的名单。";;
+    const string_removeBtn_zh = "导出并移除";
+    const string_removeBtn_title_zh = "导出一个以当前时间为文件名的 txt 文档，其中包含当前中奖的名单和尚未中奖的名单，同时将已经中奖的名单从总名单中移除，避免重复中奖。";
+ 
+
+    /* en */
+    const string_pageTitle_en = "Lucky Draw";
+    const string_infoTitle_en = "Instruction";
+    const string_infoContent_en = "<li><p>Hit \"Set List\" to set candidates, you can import candidates from a txt file, seperate multiple names with comma or new line. Duplicated names would be auto-removed.</p></li><li><p>The number of total candidates would show on the button after list set.</p></li><li><p>Then please set the number of winners for this round.</p></li><li><p>Hit \"Start\", winner names would appear on screen and change quickly. Hit \"Stop\", name would stop changing and these names are winners.</p></li><li><p>You can use the Space key on keyboard to Start/Stop.</p></li><li><p>Use \"Exp & Rem\" (Export & Remove) to export a txt file names under current time, which contains winners for this round and non-winner names. And winners would be removed to prevent them from being winner again for next round.</p></li>";
+    const string_settingsTitle_en = "Settings";
+    const string_winnerSize_en = "中奖人显示大小";
+    const string_winnerSpeed_en = "中奖人滚动速度";
+    const string_expTXT_en = "导出 txt 文本";
+    const string_expPNG_en = "导出 png 文本";
+    const string_startBtn_en = "Start";
+    const string_startBtn_title_en = "设置名单后，点击开始按钮或者按下键盘空格键以开始抽奖，屏幕上会滚动随机显示对应数量的中奖人。";
+    const string_stopBtn_en = "Stop";
+    const string_stopBtn_title_en = "点击停止按钮或者按下键盘空格键以停止，中奖人固定不再变化，视为中奖。";;
+    const string_numInput_title_en = "设置本轮抽奖的中奖人数量，请设置得低于总人数。";
+    const string_setBtn_en = "Set List";
+    const string_setBtn_title_en = "支持导入 txt 纯文本文件，请在 txt 中通过换行或者逗号来间隔多个候选人名字，不要出现重复的名字。如果人数较少，也可以输入名单。";
+    const string_nameBtn_en = "Show Names";
+    const string_nameBtn_title_en = "显示当前奖池的名单。";;
+    const string_removeBtn_en = "Exp % Rem";
+    const string_removeBtn_title_en = "导出一个以当前时间为文件名的 txt 文档，其中包含当前中奖的名单和尚未中奖的名单，同时将已经中奖的名单从总名单中移除，避免重复中奖。";
+ 
+    
+
+
+    document.title = string_pageTitle_zh;
+    document.getElementById('infoBotton').title = string_infoTitle_zh;
+    document.getElementById('infoTitle').innerText = string_infoTitle_zh;
+    document.getElementById('infoContent').innerHTML = string_infoContent_zh;
+    document.getElementById('settingsBotton').title = string_settingsTitle_zh;
+    document.getElementById('settingsTitle').innerText = string_settingsTitle_zh;
+    document.getElementById('winnerSize').innerText = string_winnerSize_zh;
+    document.getElementById('winnerSpeed').innerText = string_winnerSpeed_zh;
+    document.getElementById('expTXT').innerText = string_expTXT_zh;
+    document.getElementById('expPNG').innerText = string_expPNG_zh;
+    document.getElementById('startBtn').innerText = string_startBtn_zh;
+    document.getElementById('startBtn').title = string_startBtn_title_zh;
+    document.getElementById('stopBtn').innerText = string_stopBtn_zh;
+    document.getElementById('stopBtn').title = string_stopBtn_title_zh;
+    document.getElementById('numInput').title = string_numInput_title_zh;
+    document.getElementById('setBtn').innerText = string_setBtn_zh;
+    document.getElementById('setBtn').title = string_setBtn_title_zh;
+    document.getElementById('nameBtn').innerText = string_nameBtn_zh;
+    document.getElementById('nameBtn').title = string_nameBtn_title_zh;
+    document.getElementById('removeBtn').innerText = string_removeBtn_zh;
+    document.getElementById('removeBtn').title = string_removeBtn_title_zh;
+}
+
+
 function showInfo(showorhide) {
     const info = document.getElementById('info');
-    const setting = document.getElementById('setting');
+    const settings = document.getElementById('settings');
     if (showorhide == 'show'){
         info.style.transform = 'scale(1)';
-        setting.style.transform = 'scale(0)';
+        settings.style.transform = 'scale(0)';
         return
     }
     if (showorhide == 'hide'){
@@ -55,12 +131,12 @@ function showInfo(showorhide) {
         return
     }
     info.style.transform = info.style.transform == 'scale(1)' ? 'scale(0)' : 'scale(1)';
-    setting.style.transform = 'scale(0)';
+    settings.style.transform = 'scale(0)';
 }
 
-function showSetting(showorhide) {
+function showSettings(showorhide) {
     const info = document.getElementById('info');
-    const setting = document.getElementById('setting');
+    const setting = document.getElementById('settings');
     setting.style.transform = setting.style.transform == 'scale(1)' ? 'scale(0)' : 'scale(1)';
     info.style.transform = 'scale(0)';
 }

@@ -54,7 +54,7 @@ body {
     scale: 1.2;
 }
 
-#setting {
+#settings {
     width: 320px;
     max-height: calc(100vh - 80px);
     background-color: rgba(68, 68, 68, 75%);
@@ -71,7 +71,7 @@ body {
     z-index: 99;
     overflow-y: scroll;
 }
-#settingBotton {
+#settingsBotton {
     display: block;
     width: 28px;
     height: 28px;
@@ -88,18 +88,18 @@ body {
     z-index: 100;
     transition: 0.3s;
 }
-#settingBotton:hover{
+#settingsBotton:hover{
     scale: 1.2;
 }
 
-#setting > div {
+#settings > div {
     display: grid;
     grid-template-columns: 3fr 2fr;
     align-items: center;
     justify-content: center;
 }
 
-#setting > div > label {
+#settings > div > label {
     font-size: 20px;
     margin: 10px auto;
 }
@@ -117,10 +117,6 @@ a {
     color: rgba(255, 255, 255, 80%);
 }
 li {
-    text-align: left;
-    font-size: 20px;
-}
-li > p {
     text-align: left;
     font-size: 20px;
 }
