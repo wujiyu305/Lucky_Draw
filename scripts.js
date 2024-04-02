@@ -33,13 +33,19 @@ function listener() {
         document.getElementById('scale').value = urlPara.get('scale');
         document.getElementById('speed').value = urlPara.get('speed');
         
-        /* 加载 String */
-        stringLoader();        
+         /* 获取浏览器语言, 自动切换英文 */
+        const browserLang = navigator.language.substring(0, 2);
+        if (browserLang == 'en') {
+            lang = 'en'
+        }
+        setLang(lang);
 
         /* 网页加载完后 3 秒延迟隐藏说明窗口 */
-/*         setTimeout(function() {
+        setTimeout(function() {
             showInfo('hide');
-        }, 3000); */
+        }, 3000);
+
+
     });
     document.addEventListener('keydown', function(event){
         if(event.key ==' ') {       //监听空格键来触发开始抽奖
@@ -60,17 +66,17 @@ function listener() {
 }
 
 function setLang(language) {
-    if (language == 'zh'){
-        lang = language;
-        stringLoader();
-        document.getElementById("btnChinese").disabled = true;
-        document.getElementById("btnEnglish").disabled = false;
-    }
-    else if (language == 'en'){
+    if (language == 'en'){
         lang = language;
         stringLoader();
         document.getElementById("btnChinese").disabled = false;
         document.getElementById("btnEnglish").disabled = true;
+    }
+    else {
+        lang = language;
+        stringLoader();
+        document.getElementById("btnChinese").disabled = true;
+        document.getElementById("btnEnglish").disabled = false;
     }
 }
 
