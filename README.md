@@ -17,7 +17,7 @@ https://lucky.18g.cool
     <li>speed: 刷新速度系数，范围 0.5 - 1.5</li>
     <li>txt: 是否导出 txt，n 为否</li>
     <li>png: 是否截图，y 为是</li>
-    <li>https://lucky.18g.cool?lang=zh&scale=1.2&speed=0.8&txt=n&png=y 代表设置语言为 English，显示缩放系数 1.2，刷新速度系数 0.8，不导出 txt，导出截图。</li>
+    <li>https://lucky.18g.cool?lang=zh&scale=1.2&speed=0.8&txt=n&png=y 代表设置语言为中文，显示缩放系数 1.2，刷新速度系数 0.8，不导出 txt，导出截图。</li>
   </ul>
 </ol>
 
