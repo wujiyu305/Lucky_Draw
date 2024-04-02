@@ -32,20 +32,18 @@ function listener() {
         }
         document.getElementById('scale').value = urlPara.get('scale');
         document.getElementById('speed').value = urlPara.get('speed');
-        
-         /* 获取浏览器语言, 自动切换英文 */
-        const browserLang = navigator.language.substring(0, 2);
-        if (browserLang == 'en') {
-            lang = 'en'
+
+        /* 获取浏览器语言, 并自动切换 */
+        lang = navigator.language.substring(0, 2);
+        if (urlPara.get('lang') == 'en' | urlPara.get('lang') == 'zh') {
+            lang = urlPara.get('lang');
         }
         setLang(lang);
-
+    
         /* 网页加载完后 3 秒延迟隐藏说明窗口 */
         setTimeout(function() {
             showInfo('hide');
         }, 3000);
-
-
     });
     document.addEventListener('keydown', function(event){
         if(event.key ==' ') {       //监听空格键来触发开始抽奖
@@ -66,17 +64,28 @@ function listener() {
 }
 
 function setLang(language) {
-    if (language == 'en'){
-        lang = language;
-        stringLoader();
-        document.getElementById("btnChinese").disabled = false;
-        document.getElementById("btnEnglish").disabled = true;
-    }
-    else {
-        lang = language;
-        stringLoader();
-        document.getElementById("btnChinese").disabled = true;
-        document.getElementById("btnEnglish").disabled = false;
+    switch (language) {
+        case 'zh': {
+            lang = 'zh';
+            stringLoader();
+            document.getElementById("btnChinese").disabled = true;
+            document.getElementById("btnEnglish").disabled = false;
+            break;
+        }
+        case 'en': {
+            lang = 'en';
+            stringLoader();
+            document.getElementById("btnChinese").disabled = false;
+            document.getElementById("btnEnglish").disabled = true;
+            break;
+        }
+        default: {
+            lang = 'zh';
+            stringLoader();
+            document.getElementById("btnChinese").disabled = true;
+            document.getElementById("btnEnglish").disabled = false;
+            break;
+        }
     }
 }
 
