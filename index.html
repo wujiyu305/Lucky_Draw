@@ -14,14 +14,16 @@
 </head>
 <body>
     <header>
-        <p id="infoBotton" onclick="showInfo()"><b>i</b></p>
+        <button id="infoBotton" onclick="showInfo()">i</button>
         <div id="info">
             <h1 id="infoTitle"></h1>
-            <div><button id="btnChinese" disabled = 'true' onclick="setLang('zh')">中文</button><button id="btnEnglish" onclick="setLang('en')">English</button></div>
+            <div>
+                <button id="btnChinese" disabled = 'true' onclick="setLang('zh')">中文</button><button id="btnEnglish" onclick="setLang('en')">English</button>
+            </div>
             <ol id="infoContent"></ol>
             <p>Spark Presents</a></p>
         </div>
-        <p id="settingsBotton" onclick="showSettings()"><b>S</b></p>
+        <button id="settingsBotton" onclick="showSettings()">S</button>
         <div id="settings">
             <h1 id="settingsTitle"></h1>
             <div>

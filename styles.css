@@ -11,7 +11,7 @@ body {
     min-width: 430px;
     height: 100vh;  /* 网页高度（相对于窗口高度） */
     margin: 0 auto;
-    font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
+    font-family: 'PingFang SC', 'Helvetica Neue';
     overflow: hidden;  /* 隐藏滚动条 */
 }
 
@@ -23,7 +23,7 @@ body {
     background-color: rgba(68, 68, 68, 75%);
     color: rgba(255, 255, 255, 80%);
     border-radius: 20px;
-    padding: 5px;
+    padding: 10px;
     display: block;
     position: fixed;
     top: 10px;
@@ -35,14 +35,16 @@ body {
 }
 #infoBotton {
     display: block;
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     margin: 0;
     position: fixed;
     top: 15px;
     right: 15px;
     font-family: 'Courier New';
-    font-size: 25px;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0%);
     color: rgba(255, 255, 255, 80%);
     cursor: pointer;
     border: 2px solid rgba(255, 255, 255, 80%);
@@ -50,11 +52,12 @@ body {
     z-index: 100;
     transition: 0.3s;
 }
-#infoBotton:hover{
+#infoBotton:hover {
     scale: 1.2;
 }
 
 #info button {
+    font-family: 'PingFang SC', 'Helvetica Neue';
     font-size: 16px;
     height: 32px;
     width: 80px;
@@ -67,25 +70,26 @@ body {
     font-weight: bold;
 }
 #info button:not([disabled]) {
-    background: linear-gradient(#aaaaaa, #dddddd, #aaaaaa);
+    background: linear-gradient(#cccccc, #ffffff, #cccccc);
     color: #555555;
     font-weight: normal;
 }
 
-#btnChinese {
+#info button:first-of-type {
     border-radius: 20px 0px 0px 20px;
 }
-#btnEnglish {
+#info button:last-of-type {
     border-radius: 0px 20px 20px 0px;
 }
 
 #settings {
-    width: 320px;
+    width: 350px;
     max-height: calc(100vh - 80px);
     background-color: rgba(68, 68, 68, 75%);
     color: rgba(255, 255, 255, 80%);
     border-radius: 20px;
     padding: 5px;
+    padding-bottom: 20px;
     display: block;
     position: fixed;
     top: 50px;
@@ -98,14 +102,16 @@ body {
 }
 #settingsBotton {
     display: block;
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     margin: 0;
     position: fixed;
     top: 55px;
     right: 15px;
     font-family: 'Courier New';
-    font-size: 25px;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0%);
     color: rgba(255, 255, 255, 80%);
     cursor: pointer;
     border: 2px solid rgba(255, 255, 255, 80%);
@@ -133,14 +139,6 @@ h1 {
     text-align: center;
     font-size: 32px;
 }
-h2 {
-    text-align: center;
-    font-size: 20px;
-    font-weight: normal;
-}
-a {
-    color: rgba(255, 255, 255, 80%);
-}
 li {
     text-align: left;
     font-size: 20px;
@@ -162,7 +160,7 @@ div > p {
     margin: 25px;
     border-radius: 25px;  /* 中奖人名字方框背景圆角半径 */
     font-size: 72px;  /* 中奖人名字方框字体大小 */
-    font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
+    font-family: 'PingFang SC', 'Helvetica Neue';
     color: rgba(0, 128, 0, 90%);  /* 中奖人名字字体颜色 */
     background-color: rgba(255, 255, 255, 60%);  /* 中奖人名字方框背景颜色 */
 }
@@ -178,7 +176,7 @@ input[type=number] {
     width: 66px;
     height: 32px;
     font-size: 26px;
-    font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
+    font-family: 'PingFang SC', 'Helvetica Neue';
     border: 2px solid rgba(68, 68, 68, 70%);
     border-radius: 10px;
     padding: 5px;
@@ -190,7 +188,7 @@ footer > button {
     background-color: rgba(68, 68, 68, 60%); /* 底部按钮背景颜色 */
     color: rgba(255, 255, 255, 80%);/* 底部按钮字体颜色 */
     font-size: 24px; /* 底部按钮字体大小 */
-    font-family: 'system-ui', 'PingFang SC', 'Helvetica Neue';
+    font-family: 'PingFang SC', 'Helvetica Neue';
     cursor: pointer;
     border-radius: 30px;  /* 底部按钮圆角半径 */
     border-style: none;

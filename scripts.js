@@ -3,7 +3,7 @@ let winners = [];
 let interval;
 let speed = 150;     //默认滚动刷新速度 150 ms
 let pngwaiting = 1;
-let lang = 'zh';
+let lang;
 let string_importAlert;
 let string_importAlert_oneName;
 let string_importAlert_importFail;
@@ -102,8 +102,8 @@ function stringLoader() {
         document.getElementById('settingsTitle').innerText = "设置";
         document.getElementById('winnerSize').innerText = "中奖人显示大小";
         document.getElementById('winnerSpeed').innerText = "中奖人滚动速度";
-        document.getElementById('expTXT').innerText = "导出 txt 文本";
-        document.getElementById('expPNG').innerText = "导出 png 文件";
+        document.getElementById('expTXT').innerText = "导出 TXT 文本";
+        document.getElementById('expPNG').innerText = "导出 PNG 截图";
         document.getElementById('startBtn').innerText = "开始";
         document.getElementById('startBtn').title = "设置名单后，点击开始按钮或者按下键盘空格键以开始抽奖，屏幕上会滚动随机显示对应数量的中奖人。";
         document.getElementById('stopBtn').innerText = "停止";
@@ -111,7 +111,6 @@ function stringLoader() {
         document.getElementById('numInput').title = "设置本轮抽奖的中奖人数量，请设置得低于总人数。";
         document.getElementById('setBtn').innerText = "设置名单";
         document.getElementById('setBtn').title = "支持导入 txt 纯文本文件，请在 txt 中通过换行或者逗号来间隔多个候选人名字，不要出现重复的名字。如果人数较少，也可以输入名单。";
-        document.getElementById('nameBtn').innerText = "显示名单";
         document.getElementById('nameBtn').title = "显示当前奖池的名单。";
         document.getElementById('removeBtn').innerText = "导出并移除";
         document.getElementById('removeBtn').title = "导出一个以当前时间为文件名的 txt 文档，其中包含当前中奖的名单和尚未中奖的名单，同时将已经中奖的名单从总名单中移除，避免重复中奖。";
@@ -138,10 +137,10 @@ function stringLoader() {
         document.getElementById('infoContent').innerHTML = "<li><p>Hit \"Set List\" to set candidates, you can import candidates from a txt file, seperate multiple names with comma or new line. Duplicated names would be auto-removed.</p></li><li><p>The number of total candidates would show on the button after list set.</p></li><li><p>Then please set the number of winners for this round.</p></li><li><p>Hit \"Start\", winner names would appear on screen and change quickly. Hit \"Stop\", name would stop changing and these names are winners.</p></li><li><p>You can use the Space key on keyboard to Start/Stop.</p></li><li><p>Use \"Exp & Rem\" (Export & Remove) to export a txt file names under current time, which contains winners for this round and non-winner names. And winners would be removed to prevent them from being winner again for next round.</p></li>";
         document.getElementById('settingsBotton').title = "Settings";
         document.getElementById('settingsTitle').innerText = "Settings";
-        document.getElementById('winnerSize').innerText = "Size of Winners";
-        document.getElementById('winnerSpeed').innerText = "Speed of Refresh";
-        document.getElementById('expTXT').innerText = "Export txt file";
-        document.getElementById('expPNG').innerText = "Export png file";
+        document.getElementById('winnerSize').innerText = "Winner Box Size";
+        document.getElementById('winnerSpeed').innerText = "Refresh Speed";
+        document.getElementById('expTXT').innerText = "Export TXT File";
+        document.getElementById('expPNG').innerText = "Export Screenshot";
         document.getElementById('startBtn').innerText = "Start";
         document.getElementById('startBtn').title = "Hit \"Start\" or Space key, winner names would appear on screen and change quickly.";
         document.getElementById('stopBtn').innerText = "Stop";
@@ -149,7 +148,6 @@ function stringLoader() {
         document.getElementById('numInput').title = "Number of winners this this round. Should be less than number of total candidates.";
         document.getElementById('setBtn').innerText = "Set List";
         document.getElementById('setBtn').title = "Import candidate names from txt file, seperate miltiple names with comma or new line. You can also use type names for small list.";
-        document.getElementById('nameBtn').innerText = "Names";
         document.getElementById('nameBtn').title = "Show all the candicates.";
         document.getElementById('removeBtn').innerText = "Exp & Rem";
         document.getElementById('removeBtn').title = "Export a txt file names under current time, which contains winners for this round and non-winner names. And winners would be removed to prevent them from being winner again for next round.";
