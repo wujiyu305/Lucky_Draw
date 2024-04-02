@@ -10,8 +10,8 @@ function listener() {
 
         /* 读取网址参数 */
         const urlPara = new URLSearchParams(window.location.search);
-        if (urlPara.get('screenshot') == 'y') {
-            document.getElementById('screenshot').checked = true;
+        if (urlPara.get('png') == 'y') {
+            document.getElementById('png').checked = true;
         }
         if (urlPara.get('txt') == 'n') {
             document.getElementById('txt').checked = false;
@@ -254,7 +254,7 @@ function exportWinners() {
     ('0' + currentDate.getSeconds()).slice(-2);
 
     /* 截图导出功能 */
-    if (document.getElementById('screenshot').checked) {
+    if (document.getElementById('png').checked) {
         htmlToImage.toPng(document.body).then(function (dataUrl) {
 
             /* 网页加载后的第一次截图大概率不会有背景图，所以第一次的截图不要，等待 150 ms 第二次截图 */
