@@ -4,6 +4,7 @@ let interval;
 let speed = 150;     //默认滚动刷新速度 150 ms
 let pngwaiting = 1;
 let lang;
+let color = 'red';
 let string_importAlert;
 let string_importAlert_oneName;
 let string_importAlert_importFail;
@@ -30,8 +31,18 @@ function listener() {
         if (urlPara.get('txt') == 'n') {
             document.getElementById('txt').checked = false;
         }
-        document.getElementById('scale').value = urlPara.get('scale');
-        document.getElementById('speed').value = urlPara.get('speed');
+        if (urlPara.get('scale') >= 0.5 & urlPara.get('scale') <= 1.5 ) {
+            document.getElementById('scale').value = urlPara.get('scale');
+        }
+        if (urlPara.get('speed') >= 0.5 & urlPara.get('speed') <= 1.5 ) {
+            document.getElementById('speed').value = urlPara.get('speed');
+        }
+
+        /* 获取色彩参数并自动切换 */
+        if (urlPara.get('color') == 'red' | urlPara.get('color') == 'green' | urlPara.get('color') == 'blue') {
+            color = urlPara.get('color');
+        }
+        setColor(color);
 
         /* 获取浏览器语言, 并自动切换 */
         lang = navigator.language.substring(0, 2);
@@ -89,6 +100,36 @@ function setLang(language) {
     }
 }
 
+function setColor(colorTheme) {
+    switch (colorTheme) {
+        case 'red': {
+            color = 'red';
+            document.getElementById("red").classList.add('colorActive');
+            document.getElementById("green").classList.remove('colorActive');
+            document.getElementById("blue").classList.remove('colorActive');
+            document.body.className = 'redBody';
+            break;
+        }
+        case 'green': {
+            color = 'green';
+            document.getElementById("red").classList.remove('colorActive');
+            document.getElementById("green").classList.add('colorActive');
+            document.getElementById("blue").classList.remove('colorActive');
+            document.body.className = 'greenBody';
+            break;
+        }
+        case 'blue': {
+            color = 'blue';
+            document.getElementById("red").classList.remove('colorActive');
+            document.getElementById("green").classList.remove('colorActive');
+            document.getElementById("blue").classList.add('colorActive');
+            document.body.className = 'blueBody';
+            break;
+        }
+    }
+    displayWinners();
+}
+
 function stringLoader() {
 
     /* 多语言网页 String 设置区域 */
@@ -100,6 +141,7 @@ function stringLoader() {
         document.getElementById('infoContent').innerHTML = "<li><p>首先请使用“设置名单”设置候选名单，支持导入 txt 文本文件，文件中可使用换行或者逗号来间隔多个候选人。若有重复名字，会自动去重。</p></li><li><p>成功名单成功后，名单按钮自动显示名单的总人数，点击按钮显示详细名单。</p></li><li><p>然后请设置本轮抽奖数量，请设置得低于总人数。</p></li><li><p>点击“开始”以开始抽奖，屏幕上会滚动随机显示对应数量的中奖人。点击“停止”以停止滚动，此时中奖人固定不再变化，视为中奖。</p></li><li><p>支持使用键盘上的空格键触发开始/停止。</p></li><li><p>使用“导出并移除”导出一个以当前时间为文件名的 txt 文件，包含当前中奖的名单和尚未中奖的名单，同时会将已经中奖的名单从总名单中移除，避免重复中奖。</p></li>";
         document.getElementById('settingsBotton').title = "设置";
         document.getElementById('settingsTitle').innerText = "设置";
+        document.getElementById('theme').innerText = "主题";
         document.getElementById('winnerSize').innerText = "中奖人显示大小";
         document.getElementById('winnerSpeed').innerText = "中奖人滚动速度";
         document.getElementById('expTXT').innerText = "导出 TXT 文本";
@@ -137,6 +179,7 @@ function stringLoader() {
         document.getElementById('infoContent').innerHTML = "<li><p>Hit \"Set List\" to set candidates, you can import candidates from a txt file, seperate multiple names with comma or new line. Duplicated names would be auto-removed.</p></li><li><p>The number of total candidates would show on the button after list set.</p></li><li><p>Then please set the number of winners for this round.</p></li><li><p>Hit \"Start\", winner names would appear on screen and change quickly. Hit \"Stop\", name would stop changing and these names are winners.</p></li><li><p>You can use the Space key on keyboard to Start/Stop.</p></li><li><p>Use \"Exp & Rem\" (Export & Remove) to export a txt file names under current time, which contains winners for this round and non-winner names. And winners would be removed to prevent them from being winner again for next round.</p></li>";
         document.getElementById('settingsBotton').title = "Settings";
         document.getElementById('settingsTitle').innerText = "Settings";
+        document.getElementById('theme').innerText = "Theme";
         document.getElementById('winnerSize').innerText = "Winner Box Size";
         document.getElementById('winnerSpeed').innerText = "Refresh Speed";
         document.getElementById('expTXT').innerText = "Export TXT File";
@@ -305,6 +348,7 @@ function displayWinners() {     //显示中奖人
     for (eachWinner of winners) {     // DIV 中逐一插入奖人的名字
         const winnerBox = document.createElement('div');
         winnerBox.classList.add('winnerBox');
+        winnerBox.classList.add(color+'Winner');
         let scaleFactor = Math.sqrt((window.innerWidth * window.innerHeight) / (1440 * 800));   // 以 1440 * 800 的窗口大小为基准按比例缩放
         scaleFactor = scaleFactor * Math.pow(3 / (names.reduce((acc, name) => acc + name.length, 0) / names.length), 0.2);   // 以平均每个名字 3 个字符为基准按比例缩放
         scaleFactor = scaleFactor * document.getElementById('scale').value;        //引入用户设置的缩放系数
@@ -388,7 +432,7 @@ function exportWinners() {
             if (pngwaiting == 1) {
                 pngwaiting = 0;
                 htmlToImage.toPng(document.body).then(function () {
-                    setTimeout(150);
+                    setTimeout(500);
                 });
             }
             /* 等待 150 ms 第二次截图 */

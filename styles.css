@@ -2,8 +2,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: color(display-p3 0.1691 0.761 0.3293);
-    background-image: url(background.jpg);
     background-size: cover;
     background-position: center center;
     text-align: center;  /* 文字居中显示 */
@@ -15,11 +13,24 @@ body {
     overflow: hidden;  /* 隐藏滚动条 */
 }
 
+.redBody {
+    background-color: rgb(88,18,18);
+    background-image: url(red.jpg);
+}
+.greenBody {
+    background-color: rgb(18,88,18);
+    background-image: url(green.jpg);
+}
+.blueBody {
+    background-color: rgb(18,18,88);
+    background-image: url(blue.jpg);
+}
+
 #info {
-    width: calc(100vw - 30px);
+    width: calc(100vw - 40px);
     min-width: 400px;
     max-width: 800px;
-    max-height: calc(100vh - 80px);
+    max-height: calc(100vh - 90px);
     background-color: rgba(68, 68, 68, 75%);
     color: rgba(255, 255, 255, 80%);
     border-radius: 20px;
@@ -135,6 +146,40 @@ body {
     margin: 10px auto;
 }
 
+.colorRed {
+    width: 20px;
+    height: 20px;
+    border-radius: 15px;
+    border: 1px solid #dddddd;
+    background-color: rgb(128,18,18);
+    margin: auto 5px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.colorGreen {
+    width: 20px;
+    height: 20px;
+    border-radius: 15px;
+    border: 1px solid #dddddd;
+    background-color: rgb(18,128,18);
+    margin: auto 5px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.colorBlue {
+    width: 20px;
+    height: 20px;
+    border-radius: 15px;
+    border: 1px solid #dddddd;
+    background-color: rgb(18,18,128);
+    margin: auto 5px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.colorActive {
+    scale: 1.4;
+}
+
 h1 {
     text-align: center;
     font-size: 32px;
@@ -163,6 +208,15 @@ div > p {
     font-family: 'PingFang SC', 'Helvetica Neue';
     color: rgba(0, 128, 0, 90%);  /* 中奖人名字字体颜色 */
     background-color: rgba(255, 255, 255, 60%);  /* 中奖人名字方框背景颜色 */
+}
+.redWinner {
+    color: rgba(88, 0, 0, 90%);  /* 中奖人名字字体颜色 */
+}
+.greenWinner {
+    color: rgba(0, 88, 0, 90%);  /* 中奖人名字字体颜色 */
+}
+.blueWinner {
+    color: rgba(0, 0, 88, 90%);  /* 中奖人名字字体颜色 */
 }
 
 footer{
@@ -199,11 +253,10 @@ footer > button {
     width: 150px;  /* 底部按钮宽度 */
     height: 50px;
     transition: 0.3s;
-    transform-origin: bottom;
 }
 
 footer > button:hover{
-    scale: 1.05;
+    scale: 1.08;
 }
 
 
