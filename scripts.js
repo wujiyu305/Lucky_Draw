@@ -127,6 +127,7 @@ function setColor(colorTheme) {
             break;
         }
     }
+    pngwaiting = 1;
     displayWinners();
 }
 
@@ -229,8 +230,17 @@ function showInfo(showorhide) {
 
 function showSettings(showorhide) {
     const info = document.getElementById('info');
-    const setting = document.getElementById('settings');
-    setting.style.transform = setting.style.transform == 'scale(1)' ? 'scale(0)' : 'scale(1)';
+    const settings = document.getElementById('settings');
+    if (showorhide == 'show'){
+        info.style.transform = 'scale(0)';
+        settings.style.transform = 'scale(1)';
+        return
+    }
+    if (showorhide == 'hide'){
+        settings.style.transform = 'scale(0)';
+        return
+    }
+    settings.style.transform = settings.style.transform == 'scale(1)' ? 'scale(0)' : 'scale(1)';
     info.style.transform = 'scale(0)';
 }
 
@@ -314,6 +324,7 @@ function startDrawing() {    //开始抽奖
     }
     
     showInfo('hide');
+    showSettings('hide');
     document.getElementById('startBtn').style.display = "none";
     document.getElementById('stopBtn').style.display = "";
     document.getElementById('nameBtn').style.display = "";
@@ -393,8 +404,11 @@ function stopDrawing() {    //停止抽奖
 }
 
 function removeWinners() {    //移除中奖
+    if (winners.length == 0) {     //还没人中奖时
+        alert(string_exportAlert);
+        return;
+    }
     exportWinners();    //同时导出中奖
-
     setTimeout(function() {
         for (eachWinner of winners) {
             let index = names.indexOf(eachWinner);
@@ -411,11 +425,6 @@ function removeWinners() {    //移除中奖
 }
 
 function exportWinners() {
-    if (winners.length == 0) {     //还没人中奖时
-        alert(string_exportAlert);
-        return;
-    }
-
     const currentDate = new Date();
     const timestamp = winners.length + ' winners - ' + currentDate.getFullYear() + '-' +
     ('0' + (currentDate.getMonth() + 1)).slice(-2) + '-' +
@@ -426,33 +435,23 @@ function exportWinners() {
 
     /* 截图导出功能 */
     if (document.getElementById('png').checked) {
-        /* 网页加载后的第一次截图大概率不会有背景图，所以第一次的截图不要 */
+        showInfo('hide');
+        showSettings('hide');
+        /* 背景加载后的第一次截图大概率不会有背景图，所以这里触发两次截图，但不下载 */
         if (pngwaiting == 1) {
+            htmlToImage.toPng(document.body);
+            htmlToImage.toPng(document.body);
             pngwaiting = 0;
-            htmlToImage.toPng(document.body).then(function (dataUrl) {
-            });
-            /* 等待 500 ms 重新截图*/
-            setTimeout(function() {
-                htmlToImage.toPng(document.body).then(function (dataUrl) {
-                    const link = document.createElement('a');
-                    document.body.appendChild(link);
-                    link.download = timestamp + '.png'; // 使用当前日期时间作为截图文件名
-                    link.href = dataUrl;
-                    link.click();
-                    document.body.removeChild(link);
-                });
-            }, 500);
         }
-        else {
-            htmlToImage.toPng(document.body).then(function (dataUrl) {
-                const link = document.createElement('a');
-                document.body.appendChild(link);
-                link.download = timestamp + '.png'; // 使用当前日期时间作为截图文件名
-                link.href = dataUrl;
-                link.click();
-                document.body.removeChild(link);
-            });
-        }
+        /* 第三次截图下载 */
+        htmlToImage.toPng(document.body).then(function (dataUrl) {
+            const link = document.createElement('a');
+            document.body.appendChild(link);
+            link.download = timestamp + '.png'; // 使用当前日期时间作为截图文件名
+            link.href = dataUrl;
+            link.click();
+            document.body.removeChild(link);
+        });
     }
 
     /* txt 导出功能 */
