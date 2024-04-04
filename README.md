@@ -1,5 +1,5 @@
 <h1>一个简单的抽奖网页</h1>
-<p>演示：<a>https://lucky.18g.cool</a></p>
+<p>演示：<a href=https://lucky.18g.cool>https://lucky.18g.cool</a></p>
 <ol>
   <li>支持中文和 English，自动根据浏览器语言识别，也可手动切换。</li>
   <li>支持红、绿、蓝三种主题色，默认绿色。</li>
@@ -17,13 +17,13 @@
     <li>speed: 刷新速度系数，范围 0.50 - 1.50</li>
     <li>txt: 是否导出 txt，n 为否</li>
     <li>png: 是否截图，y 为是</li>
-    <li>https://lucky.18g.cool?lang=zh&scale=1.2&speed=0.8&txt=n&png=y 代表设置语言为中文，显示缩放系数 1.2，刷新速度系数 0.8，不导出 txt，导出截图。</li>
+    <li>https://lucky.18g.cool?lang=zh&color=red&scale=1.2&speed=0.8&txt=n&png=y 代表设置语言为中文，主题为红色，显示缩放系数 1.2，刷新速度系数 0.8，不导出 txt，导出截图。</li>
   </ul>
 </ol>
 <br><br>
 
 <h1>A Simple Lucky Draw Webpage</h1>
-<p>Demo: <a>https://lucky.18g.cool</a></p>
+<p>Demo: <a href=https://lucky.18g.cool>https://lucky.18g.cool</a></p>
 <ol>
   <li>Support Chinese and English, auto detect browser language, manually switch supported.</li>
   <li>Support red, green and blue three color thmese, default is green.</li>
