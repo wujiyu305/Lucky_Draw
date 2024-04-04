@@ -426,22 +426,33 @@ function exportWinners() {
 
     /* 截图导出功能 */
     if (document.getElementById('png').checked) {
-        /* 网页加载后的第一次截图大概率不会有背景图，所以第一次的截图不要，等待 100 ms 第二次截图 */
+        /* 网页加载后的第一次截图大概率不会有背景图，所以第一次的截图不要 */
         if (pngwaiting == 1) {
             pngwaiting = 0;
-            htmlToImage.toPng(document.body).then(function () {
-                setTimeout(100);
+            htmlToImage.toPng(document.body).then(function (dataUrl) {
+            });
+            /* 等待 500 ms 重新截图*/
+            setTimeout(function() {
+                htmlToImage.toPng(document.body).then(function (dataUrl) {
+                    const link = document.createElement('a');
+                    document.body.appendChild(link);
+                    link.download = timestamp + '.png'; // 使用当前日期时间作为截图文件名
+                    link.href = dataUrl;
+                    link.click();
+                    document.body.removeChild(link);
+                });
+            }, 500);
+        }
+        else {
+            htmlToImage.toPng(document.body).then(function (dataUrl) {
+                const link = document.createElement('a');
+                document.body.appendChild(link);
+                link.download = timestamp + '.png'; // 使用当前日期时间作为截图文件名
+                link.href = dataUrl;
+                link.click();
+                document.body.removeChild(link);
             });
         }
-        /* 第二次截图 */
-        htmlToImage.toPng(document.body).then(function (dataUrl) {
-            const link = document.createElement('a');
-            document.body.appendChild(link);
-            link.download = timestamp + '.png'; // 使用当前日期时间作为截图文件名
-            link.href = dataUrl;
-            link.click();
-            document.body.removeChild(link);
-        });
     }
 
     /* txt 导出功能 */
