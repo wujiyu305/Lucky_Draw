@@ -4,7 +4,7 @@ let interval;
 let speed = 150;     //默认滚动刷新速度 150 ms
 let pngwaiting = 1;
 let lang;
-let color = 'red';
+let color = 'green';
 let string_importAlert;
 let string_importAlert_oneName;
 let string_importAlert_importFail;
