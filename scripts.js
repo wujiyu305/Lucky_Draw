@@ -441,17 +441,31 @@ function exportWinners() {
         if (pngwaiting == 1) {
             htmlToImage.toPng(document.body);
             htmlToImage.toPng(document.body);
-            pngwaiting = 0;
+
+            /* 等待 500 ms 后第三次截图，并下载 */
+            setTimeout (function(){
+                htmlToImage.toPng(document.body).then(function (dataUrl) {
+                    const link = document.createElement('a');
+                    document.body.appendChild(link);
+                    link.download = timestamp + '.png'; // 使用当前日期时间作为截图文件名
+                    link.href = dataUrl;
+                    link.click();
+                    document.body.removeChild(link);
+                    pngwaiting = 0;
+                });
+            }, 500);
         }
-        /* 第三次截图下载 */
-        htmlToImage.toPng(document.body).then(function (dataUrl) {
-            const link = document.createElement('a');
-            document.body.appendChild(link);
-            link.download = timestamp + '.png'; // 使用当前日期时间作为截图文件名
-            link.href = dataUrl;
-            link.click();
-            document.body.removeChild(link);
-        });
+        
+        else {
+            htmlToImage.toPng(document.body).then(function (dataUrl) {
+                const link = document.createElement('a');
+                document.body.appendChild(link);
+                link.download = timestamp + '.png'; // 使用当前日期时间作为截图文件名
+                link.href = dataUrl;
+                link.click();
+                document.body.removeChild(link);
+            });
+        }
     }
 
     /* txt 导出功能 */
