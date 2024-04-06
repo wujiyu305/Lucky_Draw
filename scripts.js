@@ -206,8 +206,8 @@ function stringLoader() {
         string_winnerAlert_biggerWinner = "Winners should be less than candidates.";
         string_winnerAlert_oneWinner = "Please allow at least 1 winner";
         string_exportAlert = "There is no winner for this round yet.";
-        string_exportTemplate_p1 = "********** Winners for this round **********\n\n";
-        string_exportTemplate_p2 = "\n\n****************************\n\n\n\n\n\n\n\n\n********** Candidates left **********\n\n";
+        string_exportTemplate_p1 = "****** Winners for this round *******\n\n";
+        string_exportTemplate_p2 = "\n\n*************************************\n\n\n\n\n\n\n\n\n********** Candidates left **********\n\n";
     }
 }
 
