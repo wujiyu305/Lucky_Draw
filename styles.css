@@ -14,16 +14,16 @@ body {
 }
 
 .redBody {
-    background-color: rgb(88,18,18);
-    background-image: url(red.jpg);
+    background-color: rgb(128,38,38);
+    background-image: url(img/red.jpg);
 }
 .greenBody {
-    background-color: rgb(18,88,18);
-    background-image: url(green.jpg);
+    background-color: rgb(38,128,38);
+    background-image: url(img/green.jpg);
 }
 .blueBody {
-    background-color: rgb(18,18,88);
-    background-image: url(blue.jpg);
+    background-color: rgb(38,128,128);
+    background-image: url(img/blue.jpg);
 }
 
 #info {
@@ -153,7 +153,7 @@ body {
     height: 20px;
     border-radius: 15px;
     border: 1px solid #dddddd;
-    background-color: rgb(128,18,18);
+    background-color: rgb(148,38,38);
     margin: auto 5px;
     transition: 0.3s;
     cursor: pointer;
@@ -164,7 +164,7 @@ body {
     height: 20px;
     border-radius: 15px;
     border: 1px solid #dddddd;
-    background-color: rgb(18,128,18);
+    background-color: rgb(38,148,38);
     margin: auto 5px;
     transition: 0.3s;
     cursor: pointer;
@@ -175,7 +175,7 @@ body {
     height: 20px;
     border-radius: 15px;
     border: 1px solid #dddddd;
-    background-color: rgb(18,18,128);
+    background-color: rgb(38,148,148);
     margin: auto 5px;
     transition: 0.3s;
     cursor: pointer;
@@ -215,13 +215,13 @@ div > p {
     background-color: rgba(255, 255, 255, 60%);  /* 中奖人名字方框背景颜色 */
 }
 .redWinner {
-    color: rgba(88, 0, 0, 90%);  /* 中奖人名字字体颜色 */
+    color: rgba(128, 0, 0, 90%);  /* 中奖人名字字体颜色 */
 }
 .greenWinner {
-    color: rgba(0, 88, 0, 90%);  /* 中奖人名字字体颜色 */
+    color: rgba(0, 108, 0, 90%);  /* 中奖人名字字体颜色 */
 }
 .blueWinner {
-    color: rgba(0, 0, 88, 90%);  /* 中奖人名字字体颜色 */
+    color: rgba(0, 88, 88, 90%);  /* 中奖人名字字体颜色 */
 }
 
 footer{
