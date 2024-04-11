@@ -106,9 +106,9 @@ function setLang(language) {
 }
 
 function setColor(colorTheme) {
-    switch (colorTheme) {
+    color = colorTheme;
+    switch (color) {
         case 'red': {
-            color = 'red';
             document.getElementById("red").classList.add('colorActive');
             document.getElementById("green").classList.remove('colorActive');
             document.getElementById("blue").classList.remove('colorActive');
@@ -116,7 +116,6 @@ function setColor(colorTheme) {
             break;
         }
         case 'green': {
-            color = 'green';
             document.getElementById("red").classList.remove('colorActive');
             document.getElementById("green").classList.add('colorActive');
             document.getElementById("blue").classList.remove('colorActive');
@@ -124,7 +123,6 @@ function setColor(colorTheme) {
             break;
         }
         case 'blue': {
-            color = 'blue';
             document.getElementById("red").classList.remove('colorActive');
             document.getElementById("green").classList.remove('colorActive');
             document.getElementById("blue").classList.add('colorActive');
@@ -215,7 +213,6 @@ function stringLoader() {
         string_exportTemplate_p2 = "\n\n*************************************\n\n\n\n\n\n\n\n\n********** Candidates left **********\n\n";
     }
 }
-
 
 function showInfo(showorhide) {
     const info = document.getElementById('info');
@@ -458,8 +455,6 @@ function exportWinners() {
 
     /* 截图导出功能 */
     if (document.getElementById('png').checked) {
-        showInfo('hide');
-        showSettings('hide');
         /* 背景加载后的第一次截图大概率不会有背景图，所以这里触发两次截图，但不下载 */
         if (pngwaiting == 1) {
             htmlToImage.toPng(document.body);

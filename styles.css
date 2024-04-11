@@ -17,13 +17,13 @@ body {
 }
 
 .redBody {
-    background-color: rgb(178,68,68);
+    background-color: rgb(250,108,108);
 }
 .greenBody {
-    background-color: rgb(68,178,68);
+    background-color: rgb(68,250,68);
 }
 .blueBody {
-    background-color: rgb(68,178,178);
+    background-color: rgb(68,250,250);
 }
 
 #info {
@@ -226,19 +226,18 @@ div > p {
     border-radius: 25px;  /* 中奖人名字方框背景圆角半径 */
     font-size: 72px;  /* 中奖人名字方框字体大小 */
     font-family: 'PingFang SC', 'Helvetica Neue';
-    color: rgba(0, 128, 0, 90%);  /* 中奖人名字字体颜色 */
-    background-color: rgba(255, 255, 255, 50%);  /* 中奖人名字方框背景颜色 */
+    background-color: rgba(255, 255, 255, 65%);  /* 中奖人名字方框背景颜色 */
     backdrop-filter: blur(50px);
     -webkit-backdrop-filter: blur(50px);
 }
 .redWinner {
-    color: rgba(128, 0, 0, 90%);  /* 中奖人名字字体颜色 */
+    color: rgba(158, 20, 20, 90%);  /* 中奖人名字字体颜色 */
 }
 .greenWinner {
     color: rgba(0, 108, 0, 90%);  /* 中奖人名字字体颜色 */
 }
 .blueWinner {
-    color: rgba(0, 88, 88, 90%);  /* 中奖人名字字体颜色 */
+    color: rgba(0, 128, 128, 90%);  /* 中奖人名字字体颜色 */
 }
 
 footer{
