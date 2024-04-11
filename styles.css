@@ -3,7 +3,7 @@ body {
     justify-content: center;
     align-items: center;
     background-color: rgb(20,100,20);
-    background-image: url(/img/background-t.webp);
+    background-image: url(/img/background.webp);
     background-size: cover;
     background-position: center center;
     text-align: center;  /* 文字居中显示 */
