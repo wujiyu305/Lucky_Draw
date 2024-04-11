@@ -72,6 +72,11 @@ function listener() {
     window.addEventListener('resize', function() {
         displayWinners();     // 在窗口大小变化时缩放 winnerBox
     });
+    /* 点击空白处关闭设置和信息窗口 */
+    document.getElementById('overlay').addEventListener('click', function(){
+        showInfo('hide');
+        showSettings('hide');
+    });
 }
 
 function setLang(language) {
@@ -218,14 +223,17 @@ function showInfo(showorhide) {
     if (showorhide == 'show'){
         info.style.transform = 'scale(1)';
         settings.style.transform = 'scale(0)';
+        showOverlay();
         return
     }
     if (showorhide == 'hide'){
         info.style.transform = 'scale(0)';
+        showOverlay();
         return
     }
     info.style.transform = info.style.transform == 'scale(1)' ? 'scale(0)' : 'scale(1)';
     settings.style.transform = 'scale(0)';
+    showOverlay();
 }
 
 function showSettings(showorhide) {
@@ -234,14 +242,29 @@ function showSettings(showorhide) {
     if (showorhide == 'show'){
         info.style.transform = 'scale(0)';
         settings.style.transform = 'scale(1)';
+        showOverlay();
         return
     }
     if (showorhide == 'hide'){
         settings.style.transform = 'scale(0)';
+        showOverlay();
         return
     }
     settings.style.transform = settings.style.transform == 'scale(1)' ? 'scale(0)' : 'scale(1)';
     info.style.transform = 'scale(0)';
+    showOverlay();
+}
+
+function showOverlay() {
+    const info = document.getElementById('info');
+    const settings = document.getElementById('settings');
+    const overlay = document.getElementById('overlay');
+    if (info.style.transform == 'scale(1)' | settings.style.transform == 'scale(1)') {
+        overlay.style.display = 'block';        
+    }
+    else {
+        overlay.style.display = 'none';
+    }
 }
 
 function setNames() {    //设置名单
