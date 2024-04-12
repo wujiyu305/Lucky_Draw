@@ -63,7 +63,7 @@ function listener() {
         /* 网页加载完后 3 秒延迟隐藏说明窗口 */
         setTimeout(function() {
             showInfo('hide');
-        }, 0);
+        }, 3000);
     });
     document.addEventListener('keydown', handleKeyDown);
 
