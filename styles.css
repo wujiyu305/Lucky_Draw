@@ -16,6 +16,11 @@ body {
     transition: 1s;
 }
 
+.blur {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
 .redBody {
     background-color: rgb(250,108,108);
 }
@@ -43,8 +48,6 @@ body {
     transition: transform 0.5s;
     z-index: 99;
     overflow-y: scroll;
-    backdrop-filter: blur(50px);
-    -webkit-backdrop-filter: blur(50px);
 }
 #infoBotton {
     display: block;
@@ -68,6 +71,7 @@ body {
 }
 #infoBotton:hover {
     scale: 1.2;
+    color: rgba(255, 255, 255, 100%);
 }
 
 #info button {
@@ -113,8 +117,6 @@ body {
     transition: transform 0.5s;
     z-index: 99;
     overflow-y: scroll;
-    backdrop-filter: blur(50px);
-    -webkit-backdrop-filter: blur(50px);
 }
 #settingsBotton {
     display: block;
@@ -138,6 +140,7 @@ body {
 }
 #settingsBotton:hover{
     scale: 1.2;
+    color: rgba(255, 255, 255, 100%);
 }
 
 #settings > div {
@@ -212,6 +215,89 @@ div > p {
     z-index: 98;
 }
 
+
+/* 提示框 */
+
+#alert {
+    display: block;
+    position: fixed;
+    width: 400px; 
+    background-color: rgba(0, 0, 0, 30%); 
+    color: rgba(255, 255, 255, 90%);
+    border-radius: 20px;
+    justify-content: center;
+    padding-bottom: 0px;
+    transform: scale(0);
+    transition: transform 0.3s;
+    z-index: 101;
+}
+
+#alertTitle {
+    font-size: 26px;
+    height: 32px;
+}
+
+#alertContent {
+    display: block;
+    font-size: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 10px;
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+
+#buttonSepH {
+    width: 100%;
+    height: 0px;
+    border: 0.5px #cccccc solid;
+    margin: 0px;
+  }
+
+
+#buttonSepV {
+    display: inline-block;
+    position: fixed;
+    bottom: 0px;
+    width: 0px;
+    height: 50px;
+    border: 0.5px #cccccc solid;
+    margin: 0px;
+}
+
+
+#alert > button {
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0%); 
+    color: rgba(255, 255, 255, 90%);
+    font-size: 20px;
+    height: 50px;
+    width: 180px;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#alert > button:hover {
+    scale: 1.1;
+    color: rgba(255, 255, 255, 100%);
+}
+
+textarea {
+    height: 100px;
+    min-height: 50px;
+    max-height: 400px;
+    width: 380px;
+    font-size: 18px;
+    resize: vertical;
+    opacity: 80%;
+    background-color: rgba(0, 0, 0, 30%);
+    color: rgba(255, 255, 255, 90%);
+}
+
 #winners {
     max-height: calc(100vh - 60px);
     width: 95%;
@@ -227,8 +313,6 @@ div > p {
     font-size: 72px;  /* 中奖人名字方框字体大小 */
     font-family: 'PingFang SC', 'Helvetica Neue';
     background-color: rgba(255, 255, 255, 65%);  /* 中奖人名字方框背景颜色 */
-    backdrop-filter: blur(50px);
-    -webkit-backdrop-filter: blur(50px);
 }
 .redWinner {
     color: rgba(158, 20, 20, 90%);  /* 中奖人名字字体颜色 */
@@ -275,12 +359,11 @@ footer > button {
     width: 150px;  /* 底部按钮宽度 */
     height: 50px;
     transition: 0.3s;
-    backdrop-filter: blur(50px);
-    -webkit-backdrop-filter: blur(50px);
 }
 
 footer > button:hover{
     scale: 1.08;
+    color: rgba(255, 255, 255, 100%);
 }
 
 

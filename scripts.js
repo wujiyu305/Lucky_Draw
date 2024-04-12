@@ -1,15 +1,20 @@
-let names = [];
+let names = []
 let winners = [];
 let interval;
 let speed = 150;     //默认滚动刷新速度 150 ms
 let pngwaiting = 1;
 let lang;
 let color = 'green';
-let string_importAlert;
-let string_importAlert_oneName;
-let string_importAlert_importFail;
-let string_importAlert_type;
-let string_importAlert_typeFail;
+let string_setNameAlert;
+let string_setNameAlert_tpye;
+let string_setNameAlert_content;
+let string_setNameAlert_left;
+let string_setNameAlert_right;
+let string_setNameAlert_oneName;
+let string_setNameAlert_importFail;
+let string_setNameAlert_type;
+let string_setNameAlert_typeFail;
+let string_alert;
 let string_nameAlert;
 let string_startAlert_nonInt;
 let string_winnerAlert_noName;
@@ -18,6 +23,10 @@ let string_winnerAlert_oneWinner;
 let string_exportAlert;
 let string_exportTemplate_p1;
 let string_exportTemplate_p2;
+let string_alertBtnLeft;
+let string_alertBtnRight;
+let string_cancel;
+let string_continue;
 listener();
 
 function listener() {
@@ -54,18 +63,10 @@ function listener() {
         /* 网页加载完后 3 秒延迟隐藏说明窗口 */
         setTimeout(function() {
             showInfo('hide');
-        }, 3000);
+        }, 0);
     });
-    document.addEventListener('keydown', function(event){
-        if(event.key ==' ') {       //监听空格键来触发开始抽奖
-            if (document.getElementById('stopBtn').style.display == 'none') {
-                startDrawing();
-            }
-            else {
-                stopDrawing();
-            }
-        }
-    });
+    document.addEventListener('keydown', handleKeyDown);
+
     document.getElementById('scale').addEventListener('input', function() {
         displayWinners();     // 调整大小滑块时缩放 winnerBox
     });
@@ -77,6 +78,17 @@ function listener() {
         showInfo('hide');
         showSettings('hide');
     });
+}
+
+function handleKeyDown(event){
+    if(event.key ==' ') {       //监听空格键来触发开始抽奖
+        if (document.getElementById('stopBtn').style.display == 'none') {
+            startDrawing();
+        }
+        else {
+            stopDrawing();
+        }
+    }
 }
 
 function setLang(language) {
@@ -160,11 +172,16 @@ function stringLoader() {
         document.getElementById('nameBtn').title = "显示当前奖池的名单。";
         document.getElementById('removeBtn').innerText = "导出并移除";
         document.getElementById('removeBtn').title = "导出一个以当前时间为文件名的 txt 文档，其中包含当前中奖的名单和尚未中奖的名单，同时将已经中奖的名单从总名单中移除，避免重复中奖。";
-        string_importAlert = "即将从 txt 文件导入名单。\n\n如果人数较少，可取消以手动输入名单。";
-        string_importAlert_oneName = "1 个人就不用抽奖来吧。";
-        string_importAlert_importFail = "导入失败，请检查 txt 文件。";
-        string_importAlert_type = "请输入抽奖名单，以逗号间隔多个名字。\n若有重复名字，将自动保留其中一个。";
-        string_importAlert_typeFail = "检测失败，请重新输入。";
+        string_setNameAlert = "请选择设置名单的方式";
+        string_setNameAlert_tpye = "请输入名单";
+        string_setNameAlert_content= "用逗号和换行来分隔多个名字";
+        string_setNameAlert_left = "输入名单";
+        string_setNameAlert_right = "导入 TXT 名单";
+        string_setNameAlert_oneName = "1 个人就不用抽奖了吧。";
+        string_setNameAlert_importFail = "导入失败，请检查 txt 文件。";
+        string_setNameAlert_type = "请输入抽奖名单，以逗号间隔多个名字。\n若有重复名字，将自动保留其中一个。";
+        string_setNameAlert_typeFail = "检测失败，请重新输入。";
+        string_alert = '提醒';
         string_nameAlert = "当前奖池中名单如下：\n\n";
         string_startAlert_nonInt = "请确保在中奖人数处仅输入了整数哦。";
         string_winnerAlert_noName = "抽奖名单现在是空的哦。";
@@ -173,6 +190,10 @@ function stringLoader() {
         string_exportAlert = "这一轮还没有人中奖哦。";
         string_exportTemplate_p1 = "********** 当轮中奖 **********\n\n";
         string_exportTemplate_p2 = "\n\n****************************\n\n\n\n\n\n\n\n\n********** 尚未中奖 **********\n\n";
+        string_alertBtnLeft = "使用说明";
+        string_alertBtnRight = "确定";
+        string_cancel = '取消';
+        string_continue = '继续';
     }
 
     /* en */
@@ -198,11 +219,16 @@ function stringLoader() {
         document.getElementById('nameBtn').title = "Show all the candicates.";
         document.getElementById('removeBtn').innerText = "Exp & Rem";
         document.getElementById('removeBtn').title = "Export a txt file names under current time, which contains winners for this round and non-winner names. And winners would be removed to prevent them from being winner again for next round.";
-        string_importAlert = "Would import candidates from a txt file.\n\nIf you just got a small list, you can just cancel to type in candidates.";
-        string_importAlert_oneName = "You don't need a luck draw if you got only 1 candidate.";
-        string_importAlert_importFail = "Failed to set candidates from txt, please check the file.";
-        string_importAlert_type = "Please input candidate names.\nSeperated multiple names with comma.\nDuplicated names would be auto-removed.";
-        string_importAlert_typeFail = "Failed to detect candidates, please check and try again.";
+        string_setNameAlert = "Set Name List";
+        string_setNameAlert_tpye = "Please Type Name List";
+        string_setNameAlert_content= "Seperate multiple names with comma or new line.";
+        string_setNameAlert_left = "Type Names";
+        string_setNameAlert_right = "TXT Import Names";
+        string_setNameAlert_oneName = "You don't need a luck draw if you got only 1 candidate.";
+        string_setNameAlert_importFail = "Failed to set candidates from txt, please check the file.";
+        string_setNameAlert_type = "Please input candidate names.\nSeperated multiple names with comma.\nDuplicated names would be auto-removed.";
+        string_setNameAlert_typeFail = "Failed to detect candidates, please check and try again.";
+        string_alert = 'Reminder';
         string_nameAlert = "Below are candidates for now:\n\n";
         string_startAlert_nonInt = "Please make sure to enter only integers for the number of winners.";
         string_winnerAlert_noName = "Candidate list is still empty.";
@@ -211,15 +237,21 @@ function stringLoader() {
         string_exportAlert = "There is no winner for this round yet.";
         string_exportTemplate_p1 = "****** Winners for this round *******\n\n";
         string_exportTemplate_p2 = "\n\n*************************************\n\n\n\n\n\n\n\n\n********** Candidates left **********\n\n";
+        string_alertBtnLeft = "Instruction";
+        string_alertBtnRight = "OK";
+        string_cancel = 'Cancel';
+        string_continue = 'Continue';
     }
 }
 
 function showInfo(showorhide) {
     const info = document.getElementById('info');
     const settings = document.getElementById('settings');
+    const alert = document.getElementById('alert');
     if (showorhide == 'show'){
         info.style.transform = 'scale(1)';
         settings.style.transform = 'scale(0)';
+        showAlert();
         showOverlay();
         return
     }
@@ -230,6 +262,7 @@ function showInfo(showorhide) {
     }
     info.style.transform = info.style.transform == 'scale(1)' ? 'scale(0)' : 'scale(1)';
     settings.style.transform = 'scale(0)';
+    showAlert();
     showOverlay();
 }
 
@@ -239,6 +272,7 @@ function showSettings(showorhide) {
     if (showorhide == 'show'){
         info.style.transform = 'scale(0)';
         settings.style.transform = 'scale(1)';
+        showAlert();
         showOverlay();
         return
     }
@@ -249,25 +283,153 @@ function showSettings(showorhide) {
     }
     settings.style.transform = settings.style.transform == 'scale(1)' ? 'scale(0)' : 'scale(1)';
     info.style.transform = 'scale(0)';
+    showAlert();
     showOverlay();
 }
 
 function showOverlay() {
     const info = document.getElementById('info');
     const settings = document.getElementById('settings');
+    const alert = document.getElementById('alert');
     const overlay = document.getElementById('overlay');
-    if (info.style.transform == 'scale(1)' | settings.style.transform == 'scale(1)') {
-        overlay.style.display = 'block';        
+    if (info.style.transform == 'scale(1)' | settings.style.transform == 'scale(1)' | alert.style.transform == 'scale(1)') {
+        overlay.style.display = 'block';
+        document.removeEventListener('keydown', handleKeyDown);
     }
     else {
         overlay.style.display = 'none';
+        document.addEventListener('keydown', handleKeyDown);
     }
 }
 
-function setNames() {    //设置名单
-    const choice = confirm(string_importAlert);
 
-    if (choice) {
+function showAlert(alerttitle, alerttext) {
+    const alert = document.getElementById('alert');
+    if (alerttext){
+        if (alert.children.length ){
+            while (alert.firstChild) {
+                alert.removeChild(alert.firstChild);
+            }
+        }
+        const alertTitle = document.createElement('h1');
+        alertTitle.id = 'alertTitle';
+        alertTitle.innerText = alerttitle;
+        alert.appendChild(alertTitle);
+        const alertContent = document.createElement('p');
+        alertContent.id = 'alertContent';
+        alertContent.innerText = alerttext;
+        alert.appendChild(alertContent);
+        const buttonSepH = document.createElement('p');
+        buttonSepH.id = 'buttonSepH';
+        alert.appendChild(buttonSepH);
+        const alertLeftBtn = document.createElement('button');
+        alertLeftBtn.id = 'alertLeftBtn';
+        alertLeftBtn.innerText = string_alertBtnLeft;
+        alertLeftBtn.setAttribute('onclick', 'showInfo()');
+        alert.appendChild(alertLeftBtn);
+        const buttonSepV = document.createElement('p');
+        buttonSepV.id = 'buttonSepV';
+        alert.appendChild(buttonSepV);
+        const alertRightBtn = document.createElement('button');
+        alertRightBtn.setAttribute('onclick', 'showAlert()');
+        alertRightBtn.id = 'alertRightBtn';
+        alertRightBtn.innerText = string_alertBtnRight;
+        alert.appendChild(alertRightBtn);
+        alert.style.transform = 'scale(1)';
+        alert.classList.add('blur');
+        showOverlay();
+    }
+    else {
+        alert.style.transform = 'scale(0)';
+        setTimeout (function(){
+            while (alert.firstChild) {
+                alert.removeChild(alert.firstChild);
+            }
+        }, 300)
+        alert.classList.remove('blur');
+        showOverlay();
+    }
+}
+
+function setNameAlert () {
+    const alert = document.getElementById('alert');
+    if (alert.children.length ){
+        while (alert.firstChild) {
+            alert.removeChild(alert.firstChild);
+        }
+    }
+    const alertTitle = document.createElement('h1');
+    alertTitle.id = 'alertTitle';
+    alertTitle.innerText = string_setNameAlert;
+    alert.appendChild(alertTitle);
+    const alertContent = document.createElement('p');
+    alertContent.id = 'alertContent';
+    alertContent.innerText = string_setNameAlert_content;
+    alert.appendChild(alertContent);
+    const buttonSepH = document.createElement('p');
+    buttonSepH.id = 'buttonSepH';
+    alert.appendChild(buttonSepH);
+    const alertLeftBtn = document.createElement('button');
+    alertLeftBtn.id = 'alertLeftBtn';
+    alertLeftBtn.innerText = string_setNameAlert_left;
+    alertLeftBtn.setAttribute('onclick', 'typeNameAlert()');
+    alert.appendChild(alertLeftBtn);
+    const buttonSepV = document.createElement('p');
+    buttonSepV.id = 'buttonSepV';
+    alert.appendChild(buttonSepV);
+    const alertRightBtn = document.createElement('button');
+    alertRightBtn.setAttribute('onclick', 'setNames(1)');
+    alertRightBtn.id = 'alertRightBtn';
+    alertRightBtn.innerText = string_setNameAlert_right;
+    alert.appendChild(alertRightBtn);
+    alert.style.transform = 'scale(1)';
+    alert.classList.add('blur');
+    showOverlay();
+}
+
+function typeNameAlert () {
+    const alert = document.getElementById('alert');
+    if (alert.children.length ){
+        while (alert.firstChild) {
+            alert.removeChild(alert.firstChild);
+        }
+    }
+    const alertTitle = document.createElement('h1');
+    alertTitle.id = 'alertTitle';
+    alertTitle.innerText = string_setNameAlert_tpye;
+    alert.appendChild(alertTitle);
+    const alertContent = document.createElement('p');
+    alertContent.id = 'alertContent';
+    alertContent.innerText = string_setNameAlert_content;
+    alert.appendChild(alertContent);
+    const alertTextarea = document.createElement('textarea');
+    alertTextarea.id = 'typelist';
+    alert.appendChild(alertTextarea);
+    const buttonSepH = document.createElement('p');
+    buttonSepH.id = 'buttonSepH';
+    alert.appendChild(buttonSepH);
+    const alertLeftBtn = document.createElement('button');
+    alertLeftBtn.id = 'alertLeftBtn';
+    alertLeftBtn.innerText = string_cancel;
+    alertLeftBtn.setAttribute('onclick', 'showAlert()');
+    alert.appendChild(alertLeftBtn);
+    const buttonSepV = document.createElement('p');
+    buttonSepV.id = 'buttonSepV';
+    alert.appendChild(buttonSepV);
+    const alertRightBtn = document.createElement('button');
+    alertRightBtn.setAttribute('onclick', 'setNames()');
+    alertRightBtn.id = 'alertRightBtn';
+    alertRightBtn.innerText = string_continue;
+    alert.appendChild(alertRightBtn);
+    alert.style.transform = 'scale(1)';
+    alert.classList.add('blur');
+    showOverlay();
+}
+
+
+function setNames(setname) {    //设置名单
+    showAlert();
+    if (setname) {
         const fileInput = document.getElementById('fileInput');
         fileInput.addEventListener('change', function(event) {
             const file = event.target.files[0];
@@ -282,10 +444,10 @@ function setNames() {    //设置名单
                     document.getElementById('nameBtn').style.display = "";
                 }
                 else if (names.length == 1) {
-                    alert(string_importAlert_oneName);
+                    showAlert(string_alert, string_setNameAlert_oneName);
                 }
                 else {
-                    alert(string_importAlert_importFail);
+                    showAlert(string_alert, string_setNameAlert_importFail);
                 }
             };
         reader.readAsText(file);
@@ -293,7 +455,8 @@ function setNames() {    //设置名单
     fileInput.click();
     }
     else {
-        const contents = prompt(string_importAlert_type);
+        const contents = document.getElementById('typelist').value;
+        showAlert();
         names = contents.split(/[,|，|\n]/).map(name => name.trim()).filter(name => name !== '');    //支持中英文逗号及换行间隔
         names = Array.from(new Set(names));    //去除重复值
         if (names.length > 1) {
@@ -302,17 +465,17 @@ function setNames() {    //设置名单
             document.getElementById('nameBtn').style.display = "";
         }
         else if (names.length == 1) {
-            alert(string_importAlert_oneName);
+            showAlert(string_alert, string_setNameAlert_oneName);
         }
         else {
-            alert(string_importAlert_typeFail);
+            showAlert(string_alert, string_setNameAlert_typeFail);
         }
     }
 }
 
 function showNames() {
     const allNames = names.join('\n');
-    alert(string_nameAlert +allNames);
+    showAlert(string_nameAlert, allNames);
 }
 
 function startDrawing() {    //开始抽奖
@@ -320,26 +483,22 @@ function startDrawing() {    //开始抽奖
     const numWinners = parseInt(numInput.value);    //获取设置的中奖人数并 Int 化
 
     if (numWinners != numInput.value){    //输入的中奖人数与 Int 化后的人数不一致，说明输入的不是整数
-        alert(string_startAlert_nonInt);
-        showInfo('show');
+        showAlert(string_alert, string_startAlert_nonInt);
         return;
     }
     
     if (names.length == 0) {    //尚未设置名单的时候开始抽奖，则显示网页说明。
-        alert(string_winnerAlert_noName);
-        showInfo('show');
+        showAlert(string_alert, string_winnerAlert_noName,);
         return;
     }
     
     if (numWinners >= names.length) {    //中奖人数比总人数高或相同
-        alert(string_winnerAlert_biggerWinner);
-        showInfo('show');
+        showAlert(string_alert, string_winnerAlert_biggerWinner);
         return;
     }
     
     if (numWinners <= 0) {    //中奖人数不是正数
-        alert(string_winnerAlert_oneWinner);
-        showInfo('show');
+        showAlert(string_alert, string_winnerAlert_oneWinner);
         return;
     }
     
@@ -379,6 +538,7 @@ function displayWinners() {     //显示中奖人
     for (eachWinner of winners) {     // DIV 中逐一插入奖人的名字
         const winnerBox = document.createElement('div');
         winnerBox.classList.add('winnerBox');
+        winnerBox.classList.add('blur');
         winnerBox.classList.add(color+'Winner');
         let scaleFactor = Math.sqrt((window.innerWidth * window.innerHeight) / (1440 * 800));   // 以 1440 * 800 的窗口大小为基准按比例缩放
         scaleFactor = scaleFactor * Math.pow(3 / (names.reduce((acc, name) => acc + name.length, 0) / names.length), 0.2);   // 以平均每个名字 3 个字符为基准按比例缩放
@@ -425,7 +585,7 @@ function stopDrawing() {    //停止抽奖
 
 function removeWinners() {    //移除中奖
     if (winners.length == 0) {     //还没人中奖时
-        alert(string_exportAlert);
+        showAlert(string_alert, string_exportAlert);
         return;
     }
     exportWinners();    //同时导出中奖

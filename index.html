@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
     <title></title>
     <meta charset="UTF-8">
@@ -11,19 +12,21 @@
     <link rel="stylesheet" href="/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
 </head>
+
 <body>
     <header>
         <button id="infoBotton" onclick="showInfo()">i</button>
-        <div id="info">
+        <div id="info" class="blur">
             <h1 id="infoTitle"></h1>
             <div>
-                <button id="btnChinese" disabled = 'true' onclick="setLang('zh')">中文</button><button id="btnEnglish" onclick="setLang('en')">English</button>
+                <button id="btnChinese" disabled='true' onclick="setLang('zh')">中文</button><button id="btnEnglish"
+                    onclick="setLang('en')">English</button>
             </div>
             <ol id="infoContent"></ol>
             <p>Spark Presents</a></p>
         </div>
         <button id="settingsBotton" onclick="showSettings()">S</button>
-        <div id="settings">
+        <div id="settings" class="blur">
             <h1 id="settingsTitle"></h1>
             <div>
                 <label id="theme"></label>
@@ -43,7 +46,7 @@
                 </label>
                 <label id="expPNG"></label>
                 <label class="switch">
-                    <input type="checkbox" id="png" >
+                    <input type="checkbox" id="png">
                     <span class="checkbox"></span>
                 </label>
             </div>
@@ -52,16 +55,18 @@
 
     <div id="overlay"></div>
     <div id="winners"></div>
+    <div id="alert"></div>
 
     <footer>
-        <button id = "startBtn" onclick="startDrawing()"></button>
-        <button id = "stopBtn" onclick="stopDrawing()" style="display: none;"></button>
-        <input id="numInput" type="number" min="1" value="1" step="1">
-        <input id="fileInput" type="file" accept=".txt" style="display: none;">
-        <button id = "setBtn" onclick="setNames()"></button>
-        <button id = "nameBtn" onclick="showNames()" style="display: none;"></button>
-        <button id = "removeBtn" onclick="removeWinners()" style="display: none;"></button>
+        <button id="startBtn" class="blur" onclick="startDrawing()"></button>
+        <button id="stopBtn" class="blur" onclick="stopDrawing()" style="display: none;"></button>
+        <input id="numInput" class="blur" type="number" min="1" value="1" step="1">
+        <input id="fileInput" class="blur" type="file" accept=".txt" style="display: none;">
+        <button id="setBtn" class="blur" onclick="setNameAlert()"></button>
+        <button id="nameBtn" class="blur" onclick="showNames()" style="display: none;"></button>
+        <button id="removeBtn" class="blur" onclick="removeWinners()" style="display: none;"></button>
     </footer>
-    <script defer src="/scripts.js" ></script>
+    <script defer src="/scripts.js"></script>
 </body>
+
 </html>
