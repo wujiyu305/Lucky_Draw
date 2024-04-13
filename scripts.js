@@ -12,7 +12,6 @@ let string_setNameAlert_left;
 let string_setNameAlert_right;
 let string_setNameAlert_oneName;
 let string_setNameAlert_importFail;
-let string_setNameAlert_type;
 let string_setNameAlert_typeFail;
 let string_alert;
 let string_nameAlert;
@@ -82,6 +81,7 @@ function listener() {
 
 function handleKeyDown(event){
     if(event.key ==' ') {       //监听空格键来触发开始抽奖
+        event.preventDefault();
         if (document.getElementById('stopBtn').style.display == 'none') {
             startDrawing();
         }
@@ -179,10 +179,9 @@ function stringLoader() {
         string_setNameAlert_right = "导入 TXT 名单";
         string_setNameAlert_oneName = "1 个人就不用抽奖了吧。";
         string_setNameAlert_importFail = "导入失败，请检查 txt 文件。";
-        string_setNameAlert_type = "请输入抽奖名单，以逗号间隔多个名字。\n若有重复名字，将自动保留其中一个。";
         string_setNameAlert_typeFail = "检测失败，请重新输入。";
         string_alert = '提醒';
-        string_nameAlert = "当前奖池中名单如下：\n\n";
+        string_nameAlert = "当前奖池中名单：";
         string_startAlert_nonInt = "请确保在中奖人数处仅输入了整数哦。";
         string_winnerAlert_noName = "抽奖名单现在是空的哦。";
         string_winnerAlert_biggerWinner = "请设置比总人数少的中奖人数。";
@@ -226,10 +225,9 @@ function stringLoader() {
         string_setNameAlert_right = "TXT Import Names";
         string_setNameAlert_oneName = "You don't need a luck draw if you got only 1 candidate.";
         string_setNameAlert_importFail = "Failed to set candidates from txt, please check the file.";
-        string_setNameAlert_type = "Please input candidate names.\nSeperated multiple names with comma.\nDuplicated names would be auto-removed.";
         string_setNameAlert_typeFail = "Failed to detect candidates, please check and try again.";
         string_alert = 'Reminder';
-        string_nameAlert = "Below are candidates for now:\n\n";
+        string_nameAlert = "Candidates for Now:";
         string_startAlert_nonInt = "Please make sure to enter only integers for the number of winners.";
         string_winnerAlert_noName = "Candidate list is still empty.";
         string_winnerAlert_biggerWinner = "Winners should be less than candidates.";
@@ -541,7 +539,7 @@ function displayWinners() {     //显示中奖人
         winnerBox.classList.add('blur');
         winnerBox.classList.add(color+'Winner');
         let scaleFactor = Math.sqrt((window.innerWidth * window.innerHeight) / (1440 * 800));   // 以 1440 * 800 的窗口大小为基准按比例缩放
-        scaleFactor = scaleFactor * Math.pow(3 / (names.reduce((acc, name) => acc + name.length, 0) / names.length), 0.2);   // 以平均每个名字 3 个字符为基准按比例缩放
+        scaleFactor = scaleFactor * Math.pow(3 / (names.reduce((acc, name) => acc + name.length, 0) / names.length), 0.25);   // 以平均每个名字 3 个字符为基准按比例缩放
         scaleFactor = scaleFactor * document.getElementById('scale').value;        //引入用户设置的缩放系数
         if (winners.length >= 10) {
             speed = 150;
