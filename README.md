@@ -35,7 +35,7 @@
   <li>Able to export winner list, and remove winners from pool for multiple rounds support. export list to a txt file by default, txt export could be disabled, able to export as screenshot, screenshot is disabled by default.</li>
   <li>Suppot URL parameters:</li>
   <ul>
-    <li>lang: Lanuage, supporty en and zh</li>
+    <li>lang: Language, support en and zh</li>
     <li>color: Color Theme, support red, green, blue</li>
     <li>scale: Scale factor, range 0.50 - 1.50</li>
     <li>speed: Speed factor, range 0.50 - 1.50</li>
