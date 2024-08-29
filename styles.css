@@ -22,13 +22,13 @@ body {
 }
 
 .redBody {
-    background-color: rgb(250,108,108);
+    background-color: rgb(250,148,148);
 }
 .greenBody {
-    background-color: rgb(68,250,68);
+    background-color: rgb(148,250,148);
 }
 .blueBody {
-    background-color: rgb(68,250,250);
+    background-color: rgb(148,250,250);
 }
 
 #info {
