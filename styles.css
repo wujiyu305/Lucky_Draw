@@ -2,33 +2,50 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(20,100,20);
-    background-image: url(/img/background.webp);
+    background-color: rgb(27, 105, 27);
+
+    /* background-image: url(/img/background.webp); */
     background-size: cover;
     background-position: center center;
-    text-align: center;  /* 文字居中显示 */
-    width: 100vw;  /* 网页宽度（相对于窗口宽度） */
+    text-align: center;
+    /* 文字居中显示 */
+    width: 100vw;
+    /* 网页宽度（相对于窗口宽度） */
     min-width: 430px;
-    height: 100vh;  /* 网页高度（相对于窗口高度） */
+    height: 100vh;
+    /* 网页高度（相对于窗口高度） */
     margin: 0 auto;
     font-family: 'PingFang SC', 'Helvetica Neue';
-    overflow: hidden;  /* 隐藏滚动条 */
+    overflow: hidden;
+    /* 隐藏滚动条 */
     transition: 1s;
 }
 
+#dynamic-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
 .blur {
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
 .redBody {
-    background-color: rgb(250,128,128);
+    background-color: rgb(142, 52, 52);
 }
+
 .greenBody {
-    background-color: rgb(148,250,148);
+    background-color: rgb(27, 105, 27);
 }
+
 .blueBody {
-    background-color: rgb(148,250,250);
+    background-color: rgb(30, 154, 154);
 }
 
 #info {
@@ -36,8 +53,12 @@ body {
     min-width: 400px;
     max-width: 800px;
     max-height: calc(100vh - 90px);
-    background-color: rgba(30, 30, 30, 30%);
-    color: rgba(255, 255, 255, 80%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    color: rgba(255, 255, 255, 0.9);
     border-radius: 20px;
     padding: 10px;
     display: block;
@@ -49,6 +70,7 @@ body {
     z-index: 99;
     overflow-y: scroll;
 }
+
 #infoBotton {
     display: block;
     width: 32px;
@@ -60,15 +82,38 @@ body {
     font-family: 'Courier New';
     font-size: 24px;
     font-weight: bold;
-    background-color: rgba(0, 0, 0, 0%);
-    color: rgba(255, 255, 255, 80%);
+    color: rgba(255, 255, 255, 0.9);
     cursor: pointer;
-    border: 2px solid rgba(255, 255, 255, 80%);
     border-radius: 20px;
     z-index: 100;
     transition: 0.3s;
     padding: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    overflow: hidden;
 }
+
+#infoBotton::before {
+    content: '';
+    position: absolute;
+    top: var(--y, 0);
+    left: var(--x, 0);
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle closest-side, rgba(255, 255, 255, 0.4), transparent);
+    border-radius: 50%;
+    transition: width 0.2s, height 0.2s;
+}
+
+#infoBotton:hover::before {
+    width: 50px;
+    height: 50px;
+}
+
 #infoBotton:hover {
     scale: 1.2;
     color: rgba(255, 255, 255, 100%);
@@ -82,11 +127,13 @@ body {
     text-align: center;
     border: 1px solid #cccccc;
 }
+
 #info button[disabled] {
     background: linear-gradient(#777777, #bbbbbb);
     color: #ffffff;
     font-weight: bold;
 }
+
 #info button:not([disabled]) {
     background: linear-gradient(#cccccc, #ffffff, #cccccc);
     color: #555555;
@@ -96,6 +143,7 @@ body {
 #info button:first-of-type {
     border-radius: 20px 0px 0px 20px;
 }
+
 #info button:last-of-type {
     border-radius: 0px 20px 20px 0px;
 }
@@ -103,8 +151,12 @@ body {
 #settings {
     width: 350px;
     max-height: calc(100vh - 80px);
-    background-color: rgba(30, 30, 30, 30%);
-    color: rgba(255, 255, 255, 80%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    color: rgba(255, 255, 255, 0.9);
     border-radius: 20px;
     padding: 5px;
     padding-bottom: 20px;
@@ -118,6 +170,7 @@ body {
     z-index: 99;
     overflow-y: scroll;
 }
+
 #settingsBotton {
     display: block;
     width: 32px;
@@ -129,28 +182,51 @@ body {
     font-family: 'Courier New';
     font-size: 24px;
     font-weight: bold;
-    background-color: rgba(0, 0, 0, 0%);
-    color: rgba(255, 255, 255, 80%);
+    color: rgba(255, 255, 255, 0.9);
     cursor: pointer;
-    border: 2px solid rgba(255, 255, 255, 80%);
     border-radius: 20px;
     z-index: 100;
     transition: 0.3s;
     padding: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    overflow: hidden;
 }
-#settingsBotton:hover{
+
+#settingsBotton::before {
+    content: '';
+    position: absolute;
+    top: var(--y, 0);
+    left: var(--x, 0);
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle closest-side, rgba(255, 255, 255, 0.4), transparent);
+    border-radius: 50%;
+    transition: width 0.2s, height 0.2s;
+}
+
+#settingsBotton:hover::before {
+    width: 50px;
+    height: 50px;
+}
+
+#settingsBotton:hover {
     scale: 1.2;
     color: rgba(255, 255, 255, 100%);
 }
 
-#settings > div {
+#settings>div {
     display: grid;
     grid-template-columns: 3fr 2fr;
     align-items: center;
     justify-content: center;
 }
 
-#settings > div > label {
+#settings>div>label {
     font-size: 20px;
     margin: 10px auto;
 }
@@ -160,34 +236,37 @@ body {
     height: 20px;
     border-radius: 15px;
     border: 1px solid #dddddd;
-    background-color: rgb(148,38,38);
+    background-color: rgb(148, 38, 38);
     margin: auto 5px;
     transition: 0.3s;
     cursor: pointer;
     padding: 0;
 }
+
 .colorGreen {
     width: 20px;
     height: 20px;
     border-radius: 15px;
     border: 1px solid #dddddd;
-    background-color: rgb(38,148,38);
+    background-color: rgb(38, 148, 38);
     margin: auto 5px;
     transition: 0.3s;
     cursor: pointer;
     padding: 0;
 }
+
 .colorBlue {
     width: 20px;
     height: 20px;
     border-radius: 15px;
     border: 1px solid #dddddd;
-    background-color: rgb(38,148,148);
+    background-color: rgb(38, 148, 148);
     margin: auto 5px;
     transition: 0.3s;
     cursor: pointer;
     padding: 0;
 }
+
 .colorActive {
     scale: 1.4;
 }
@@ -196,11 +275,13 @@ h1 {
     text-align: center;
     font-size: 32px;
 }
+
 li {
     text-align: left;
     font-size: 20px;
 }
-div > p {
+
+div>p {
     text-align: center;
     font-size: 18px;
 }
@@ -221,9 +302,13 @@ div > p {
 #alert {
     display: block;
     position: fixed;
-    width: 400px; 
-    background-color: rgba(0, 0, 0, 30%); 
-    color: rgba(255, 255, 255, 90%);
+    width: 400px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    color: rgba(255, 255, 255, 0.9);
     border-radius: 20px;
     justify-content: center;
     padding-bottom: 0px;
@@ -253,7 +338,7 @@ div > p {
     height: 0px;
     border: 0.75px #cccccc solid;
     margin: 0px;
-  }
+}
 
 
 #buttonSepV {
@@ -267,9 +352,9 @@ div > p {
 }
 
 
-#alert > button {
+#alert>button {
     display: inline-block;
-    background-color: rgba(0, 0, 0, 0%); 
+    background-color: rgba(0, 0, 0, 0%);
     color: rgba(255, 255, 255, 90%);
     font-size: 20px;
     height: 50px;
@@ -281,8 +366,8 @@ div > p {
     transition: 0.3s;
 }
 
-#alert > button:hover {
-    scale: 1.1;
+#alert>button:hover {
+    scale: 1.05;
     color: rgba(255, 255, 255, 100%);
 }
 
@@ -301,30 +386,45 @@ textarea {
 #winners {
     max-height: calc(100vh - 60px);
     width: 95%;
+    padding-bottom: 15px;
     position: relative;
     top: -30px;
     overflow-y: scroll;
 }
+
 .winnerBox {
     display: inline-block;
     padding: 10px 40px;
     margin: 25px;
-    border-radius: 25px;  /* 中奖人名字方框背景圆角半径 */
-    font-size: 72px;  /* 中奖人名字方框字体大小 */
+    border-radius: 100px;
+    font-size: 72px;
     font-family: 'PingFang SC', 'Helvetica Neue';
-    background-color: rgba(255, 255, 255, 65%);  /* 中奖人名字方框背景颜色 */
-}
-.redWinner {
-    color: rgba(158, 20, 20, 90%);  /* 中奖人名字字体颜色 */
-}
-.greenWinner {
-    color: rgba(0, 108, 0, 90%);  /* 中奖人名字字体颜色 */
-}
-.blueWinner {
-    color: rgba(0, 128, 128, 90%);  /* 中奖人名字字体颜色 */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, 0.25);
 }
 
-footer{
+.redWinner {
+    color: rgba(158, 20, 20, 90%);
+    color: rgba(255, 255, 255, 90%);
+    /* 中奖人名字字体颜色 */
+}
+
+.greenWinner {
+    color: rgba(0, 108, 0, 90%);
+    color: rgba(255, 255, 255, 90%);
+    /* 中奖人名字字体颜色 */
+}
+
+.blueWinner {
+    color: rgba(0, 128, 128, 90%);
+    color: rgba(255, 255, 255, 90%);
+    /* 中奖人名字字体颜色 */
+}
+
+footer {
     position: fixed;
     bottom: 0px;
     width: 100%;
@@ -337,33 +437,59 @@ input[type=number] {
     height: 32px;
     font-size: 26px;
     font-family: 'PingFang SC', 'Helvetica Neue';
-    border: 1px solid rgba(255, 255, 255, 50%);
     border-radius: 10px;
     padding: 5px;
     text-align: center;
-    background-color: rgba(30, 30, 30, 50%);
-    color: rgba(255, 255, 255, 90%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    color: rgba(255, 255, 255, 0.9);
 }
 
-footer > button {
-    background-color: rgba(30, 30, 30, 30%); /* 底部按钮背景颜色 */
-    color: rgba(255, 255, 255, 80%);/* 底部按钮字体颜色 */
-    font-size: 24px; /* 底部按钮字体大小 */
+footer>button {
+    position: relative;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 24px;
     font-family: 'PingFang SC', 'Helvetica Neue';
     cursor: pointer;
-    border-radius: 30px;  /* 底部按钮圆角半径 */
-    border-style: none;
+    border-radius: 30px;
     padding: 10px;
     margin: 10px;
     margin-top: 5px;
     margin-bottom: 5px;
-    width: 150px;  /* 底部按钮宽度 */
+    width: 150px;
     height: 50px;
     transition: 0.3s;
+    overflow: hidden;
 }
 
-footer > button:hover{
-    scale: 1.08;
+footer>button::before {
+    content: '';
+    position: absolute;
+    top: var(--y, 0);
+    left: var(--x, 0);
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle closest-side, rgba(255, 255, 255, 0.4), transparent);
+    border-radius: 50%;
+    transition: width 0.2s, height 0.2s;
+}
+
+footer>button:hover::before {
+    width: 100px;
+    height: 100px;
+}
+
+footer>button:hover {
+    scale: 1.05;
     color: rgba(255, 255, 255, 100%);
 }
 
@@ -380,9 +506,11 @@ input[type="range"] {
     border-radius: 10px;
     margin: 20px auto;
 }
+
 input[type="range"]:hover {
     opacity: 1;
 }
+
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
@@ -401,6 +529,7 @@ input[type="range"]::-webkit-slider-thumb {
     width: 46px;
     height: 28px;
 }
+
 .checkbox {
     position: absolute;
     cursor: pointer;
@@ -412,6 +541,7 @@ input[type="range"]::-webkit-slider-thumb {
     transition: .4s;
     border-radius: 34px;
 }
+
 .checkbox:before {
     position: absolute;
     content: "";
@@ -423,9 +553,23 @@ input[type="range"]::-webkit-slider-thumb {
     transition: .4s;
     border-radius: 50%;
 }
-input:checked + .checkbox {
+
+input:checked+.checkbox {
     background-color: #00cc00;
 }
-input:checked + .checkbox:before {
+
+input:checked+.checkbox:before {
     transform: translateX(18px);
+}
+
+/* Screenshot Mode: Temporarily disable shadows for better image capture quality */
+body.screenshot-mode #info,
+body.screenshot-mode #settings,
+body.screenshot-mode #alert,
+body.screenshot-mode #infoBotton,
+body.screenshot-mode #settingsBotton,
+body.screenshot-mode .winnerBox,
+body.screenshot-mode footer>button,
+body.screenshot-mode input[type=number] {
+    box-shadow: none !important;
 }

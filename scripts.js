@@ -29,7 +29,8 @@ let string_continue;
 listener();
 
 function listener() {
-    window.addEventListener('load', function() {
+    window.addEventListener('load', function () {
+        generateDynamicBackground();
 
         /* 读取网址参数 */
         const urlPara = new URLSearchParams(window.location.search);
@@ -39,10 +40,10 @@ function listener() {
         if (urlPara.get('txt') == 'n') {
             document.getElementById('txt').checked = false;
         }
-        if (urlPara.get('scale') >= 0.5 & urlPara.get('scale') <= 1.5 ) {
+        if (urlPara.get('scale') >= 0.5 & urlPara.get('scale') <= 1.5) {
             document.getElementById('scale').value = urlPara.get('scale');
         }
-        if (urlPara.get('speed') >= 0.5 & urlPara.get('speed') <= 1.5 ) {
+        if (urlPara.get('speed') >= 0.5 & urlPara.get('speed') <= 1.5) {
             document.getElementById('speed').value = urlPara.get('speed');
         }
 
@@ -58,29 +59,53 @@ function listener() {
             lang = urlPara.get('lang');
         }
         setLang(lang);
-    
+
         /* 网页加载完后 3 秒延迟隐藏说明窗口 */
-        setTimeout(function() {
+        setTimeout(function () {
             showInfo('hide');
         }, 3000);
     });
     document.addEventListener('keydown', handleKeyDown);
 
-    document.getElementById('scale').addEventListener('input', function() {
+    document.getElementById('scale').addEventListener('input', function () {
         displayWinners();     // 调整大小滑块时缩放 winnerBox
     });
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', function () {
         displayWinners();     // 在窗口大小变化时缩放 winnerBox
     });
     /* 点击空白处关闭设置和信息窗口 */
-    document.getElementById('overlay').addEventListener('click', function(){
+    document.getElementById('overlay').addEventListener('click', function () {
         showInfo('hide');
         showSettings('hide');
     });
+
+    /* 底部按钮鼠标悬停高光效果 */
+    const footerButtons = document.querySelectorAll('footer > button');
+    footerButtons.forEach(button => {
+        button.addEventListener('mousemove', e => {
+            const rect = button.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            button.style.setProperty('--x', `${x}px`);
+            button.style.setProperty('--y', `${y}px`);
+        });
+    });
+
+    /* 右上角按钮鼠标悬停高光效果 */
+    const headerButtons = document.querySelectorAll('#infoBotton, #settingsBotton');
+    headerButtons.forEach(button => {
+        button.addEventListener('mousemove', e => {
+            const rect = button.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            button.style.setProperty('--x', `${x}px`);
+            button.style.setProperty('--y', `${y}px`);
+        });
+    });
 }
 
-function handleKeyDown(event){
-    if(event.key ==' ') {       //监听空格键来触发开始抽奖
+function handleKeyDown(event) {
+    if (event.key == ' ') {       //监听空格键来触发开始抽奖
         event.preventDefault();
         if (document.getElementById('stopBtn').style.display == 'none') {
             startDrawing();
@@ -174,7 +199,7 @@ function stringLoader() {
         document.getElementById('removeBtn').title = "导出一个以当前时间为文件名的 txt 文档，其中包含当前中奖的名单和尚未中奖的名单，同时将已经中奖的名单从总名单中移除，避免重复中奖。";
         string_setNameAlert = "请选择设置名单的方式";
         string_setNameAlert_tpye = "请输入名单";
-        string_setNameAlert_content= "用逗号和换行来分隔多个名字";
+        string_setNameAlert_content = "用逗号和换行来分隔多个名字";
         string_setNameAlert_left = "输入名单";
         string_setNameAlert_right = "导入 TXT 名单";
         string_setNameAlert_oneName = "1 个人就不用抽奖了吧。";
@@ -220,7 +245,7 @@ function stringLoader() {
         document.getElementById('removeBtn').title = "Export a txt file names under current time, which contains winners for this round and non-winner names. And winners would be removed to prevent them from being winner again for next round.";
         string_setNameAlert = "Set Name List";
         string_setNameAlert_tpye = "Please Type Name List";
-        string_setNameAlert_content= "Seperate multiple names with comma or new line.";
+        string_setNameAlert_content = "Seperate multiple names with comma or new line.";
         string_setNameAlert_left = "Type Names";
         string_setNameAlert_right = "TXT Import Names";
         string_setNameAlert_oneName = "You don't need a luck draw if you got only 1 candidate.";
@@ -246,14 +271,14 @@ function showInfo(showorhide) {
     const info = document.getElementById('info');
     const settings = document.getElementById('settings');
     const alert = document.getElementById('alert');
-    if (showorhide == 'show'){
+    if (showorhide == 'show') {
         info.style.transform = 'scale(1)';
         settings.style.transform = 'scale(0)';
         showAlert();
         showOverlay();
         return
     }
-    if (showorhide == 'hide'){
+    if (showorhide == 'hide') {
         info.style.transform = 'scale(0)';
         showOverlay();
         return
@@ -267,14 +292,14 @@ function showInfo(showorhide) {
 function showSettings(showorhide) {
     const info = document.getElementById('info');
     const settings = document.getElementById('settings');
-    if (showorhide == 'show'){
+    if (showorhide == 'show') {
         info.style.transform = 'scale(0)';
         settings.style.transform = 'scale(1)';
         showAlert();
         showOverlay();
         return
     }
-    if (showorhide == 'hide'){
+    if (showorhide == 'hide') {
         settings.style.transform = 'scale(0)';
         showOverlay();
         return
@@ -303,8 +328,8 @@ function showOverlay() {
 
 function showAlert(alerttitle, alerttext) {
     const alert = document.getElementById('alert');
-    if (alerttext){
-        if (alert.children.length ){
+    if (alerttext) {
+        if (alert.children.length) {
             while (alert.firstChild) {
                 alert.removeChild(alert.firstChild);
             }
@@ -339,7 +364,7 @@ function showAlert(alerttitle, alerttext) {
     }
     else {
         alert.style.transform = 'scale(0)';
-        setTimeout (function(){
+        setTimeout(function () {
             while (alert.firstChild) {
                 alert.removeChild(alert.firstChild);
             }
@@ -349,9 +374,9 @@ function showAlert(alerttitle, alerttext) {
     }
 }
 
-function setNameAlert () {
+function setNameAlert() {
     const alert = document.getElementById('alert');
-    if (alert.children.length ){
+    if (alert.children.length) {
         while (alert.firstChild) {
             alert.removeChild(alert.firstChild);
         }
@@ -385,9 +410,9 @@ function setNameAlert () {
     showOverlay();
 }
 
-function typeNameAlert () {
+function typeNameAlert() {
     const alert = document.getElementById('alert');
-    if (alert.children.length ){
+    if (alert.children.length) {
         while (alert.firstChild) {
             alert.removeChild(alert.firstChild);
         }
@@ -429,10 +454,10 @@ function setNames(setname) {    //设置名单
     showAlert();
     if (setname) {
         const fileInput = document.getElementById('fileInput');
-        fileInput.addEventListener('change', function(event) {
+        fileInput.addEventListener('change', function (event) {
             const file = event.target.files[0];
             const reader = new FileReader();
-            reader.onload = function(event) {
+            reader.onload = function (event) {
                 const contents = event.target.result;
                 names = contents.split(/[,|，|\n]/).map(name => name.trim()).filter(name => name !== '');    //支持中英文逗号及换行间隔
                 names = Array.from(new Set(names));    //去除重复值
@@ -448,9 +473,9 @@ function setNames(setname) {    //设置名单
                     showAlert(string_alert, string_setNameAlert_importFail);
                 }
             };
-        reader.readAsText(file);
-    });
-    fileInput.click();
+            reader.readAsText(file);
+        });
+        fileInput.click();
     }
     else {
         const contents = document.getElementById('typelist').value;
@@ -480,26 +505,26 @@ function startDrawing() {    //开始抽奖
     const numInput = document.getElementById('numInput');
     const numWinners = parseInt(numInput.value);    //获取设置的中奖人数并 Int 化
 
-    if (numWinners != numInput.value){    //输入的中奖人数与 Int 化后的人数不一致，说明输入的不是整数
+    if (numWinners != numInput.value) {    //输入的中奖人数与 Int 化后的人数不一致，说明输入的不是整数
         showAlert(string_alert, string_startAlert_nonInt);
         return;
     }
-    
+
     if (names.length == 0) {    //尚未设置名单的时候开始抽奖，则显示网页说明。
         showAlert(string_alert, string_winnerAlert_noName,);
         return;
     }
-    
+
     if (numWinners >= names.length) {    //中奖人数比总人数高或相同
         showAlert(string_alert, string_winnerAlert_biggerWinner);
         return;
     }
-    
+
     if (numWinners <= 0) {    //中奖人数不是正数
         showAlert(string_alert, string_winnerAlert_oneWinner);
         return;
     }
-    
+
     showInfo('hide');
     showSettings('hide');
     document.getElementById('startBtn').style.display = "none";
@@ -509,18 +534,18 @@ function startDrawing() {    //开始抽奖
     document.getElementById('nameBtn').disabled = true;    //开始抽奖时禁用名单按钮
 
     let userspeed = document.getElementById('speed').value;       //获取用户设置的速度系数
-    interval = setInterval(function() {
+    interval = setInterval(function () {
         winners = [];    //清空中奖
-        
+
         while (winners.length < numWinners) {
             const randomIndex = Math.floor(Math.random() * names.length);    //取随机数
             const winner = names[randomIndex];
-            
+
             if (!winners.includes(winner)) {
                 winners.push(winner);      //不能出现重复的名字
             }
         }
-        
+
         displayWinners();
         userspeed = document.getElementById('speed').value;
         clearInterval(interval);     // 清除当前定时器
@@ -537,35 +562,31 @@ function displayWinners() {     //显示中奖人
         const winnerBox = document.createElement('div');
         winnerBox.classList.add('winnerBox');
         winnerBox.classList.add('blur');
-        winnerBox.classList.add(color+'Winner');
+        winnerBox.classList.add(color + 'Winner');
         let scaleFactor = Math.sqrt((window.innerWidth * window.innerHeight) / (1440 * 800));   // 以 1440 * 800 的窗口大小为基准按比例缩放
         scaleFactor = scaleFactor * Math.pow(3 / (names.reduce((acc, name) => acc + name.length, 0) / names.length), 0.25);   // 以平均每个名字 3 个字符为基准按比例缩放
         scaleFactor = scaleFactor * document.getElementById('scale').value;        //引入用户设置的缩放系数
         if (winners.length >= 10) {
             speed = 150;
             scaleFactor = scaleFactor * Math.pow((10 / winners.length), 0.4);    // 以 10 人中奖的的 Box 大小为基准按比例缩放
-            winnerBox.style.fontSize = 64 * scaleFactor +'px';
-            winnerBox.style.margin = 20 * scaleFactor +'px';
-            winnerBox.style.borderRadius = 20 * scaleFactor +'px';
-            winnerBox.style.padding = 10 * Math.pow(scaleFactor, 0.4) +'px ' + 40 * scaleFactor +'px';
+            winnerBox.style.fontSize = 64 * scaleFactor + 'px';
+            winnerBox.style.margin = 20 * scaleFactor + 'px';
+            winnerBox.style.padding = 10 * Math.pow(scaleFactor, 0.4) + 'px ' + 40 * scaleFactor + 'px';
         }
         else if (winners.length >= 5) {
             speed = 150 * 0.9;
-            winnerBox.style.fontSize = 68 * scaleFactor +'px';
-            winnerBox.style.margin = 22 * scaleFactor +'px';
-            winnerBox.style.borderRadius = 22 * scaleFactor +'px';
+            winnerBox.style.fontSize = 68 * scaleFactor + 'px';
+            winnerBox.style.margin = 22 * scaleFactor + 'px';
         }
         else if (winners.length >= 3) {
             speed = 150 * 0.7;
-            winnerBox.style.fontSize = 72 * scaleFactor +'px';
-            winnerBox.style.margin = 23 * scaleFactor +'px';
-            winnerBox.style.borderRadius = 23 * scaleFactor +'px';
+            winnerBox.style.fontSize = 72 * scaleFactor + 'px';
+            winnerBox.style.margin = 23 * scaleFactor + 'px';
         }
         else {
             speed = 150 * 0.6;
-            winnerBox.style.fontSize = 76 * scaleFactor +'px';
-            winnerBox.style.margin = 25 * scaleFactor +'px';
-            winnerBox.style.borderRadius = 25 * scaleFactor +'px';
+            winnerBox.style.fontSize = 76 * scaleFactor + 'px';
+            winnerBox.style.margin = 25 * scaleFactor + 'px';
         }
         winnerBox.textContent = eachWinner;
         winnersDiv.appendChild(winnerBox);
@@ -587,7 +608,7 @@ function removeWinners() {    //移除中奖
         return;
     }
     exportWinners();    //同时导出中奖
-    setTimeout(function() {
+    setTimeout(function () {
         for (eachWinner of winners) {
             let index = names.indexOf(eachWinner);
             if (index !== -1) {
@@ -605,42 +626,53 @@ function removeWinners() {    //移除中奖
 function exportWinners() {
     const currentDate = new Date();
     const timestamp = winners.length + ' winners - ' + currentDate.getFullYear() + '-' +
-    ('0' + (currentDate.getMonth() + 1)).slice(-2) + '-' +
-    ('0' + currentDate.getDate()).slice(-2) + '-' +
-    ('0' + currentDate.getHours()).slice(-2) +
-    ('0' + currentDate.getMinutes()).slice(-2) +
-    ('0' + currentDate.getSeconds()).slice(-2);
+        ('0' + (currentDate.getMonth() + 1)).slice(-2) + '-' +
+        ('0' + currentDate.getDate()).slice(-2) + '-' +
+        ('0' + currentDate.getHours()).slice(-2) +
+        ('0' + currentDate.getMinutes()).slice(-2) +
+        ('0' + currentDate.getSeconds()).slice(-2);
 
     /* 截图导出功能 */
     if (document.getElementById('png').checked) {
-        /* 背景加载后的第一次截图大概率不会有背景图，所以这里触发两次截图，但不下载 */
-        if (pngwaiting == 1) {
-            htmlToImage.toPng(document.body);
-            htmlToImage.toPng(document.body);
+        document.body.classList.add('screenshot-mode'); // 启用截图模式
 
-            /* 等待 500 ms 后第三次截图，并下载 */
-            setTimeout (function(){
-                htmlToImage.toPng(document.body).then(function (dataUrl) {
+        const bodyBackgroundColor = window.getComputedStyle(document.body).backgroundColor;
+        const options = {
+            backgroundColor: bodyBackgroundColor,
+            pixelRatio: 2 // 提高截图分辨率以获得更好的细节
+        };
+
+        const generateAndDownload = (opts) => {
+            htmlToImage.toCanvas(document.body, opts)
+                .then(function (canvas) {
+                    const dataUrl = canvas.toDataURL('image/png');
                     const link = document.createElement('a');
                     document.body.appendChild(link);
-                    link.download = timestamp + '.png'; // 使用当前日期时间作为截图文件名
+                    link.download = timestamp + '.png';
                     link.href = dataUrl;
                     link.click();
                     document.body.removeChild(link);
-                    pngwaiting = 0;
+                })
+                .finally(() => {
+                    document.body.classList.remove('screenshot-mode'); // 截图后禁用截图模式
                 });
+        };
+
+        /* 背景加载后的第一次截图大概率不会有背景图，所以这里触发两次截图，但不下载 */
+        if (pngwaiting == 1) {
+            // Warm-up renders
+            htmlToImage.toCanvas(document.body, options);
+            htmlToImage.toCanvas(document.body, options);
+
+            /* 等待 500 ms 后第三次截图，并下载 */
+            setTimeout(function () {
+                generateAndDownload(options);
+                pngwaiting = 0;
             }, 500);
         }
-        
+
         else {
-            htmlToImage.toPng(document.body).then(function (dataUrl) {
-                const link = document.createElement('a');
-                document.body.appendChild(link);
-                link.download = timestamp + '.png'; // 使用当前日期时间作为截图文件名
-                link.href = dataUrl;
-                link.click();
-                document.body.removeChild(link);
-            });
+            generateAndDownload(options);
         }
     }
 
@@ -659,4 +691,74 @@ function exportWinners() {
         element.click();
         document.body.removeChild(element);
     }
+}
+
+function generateDynamicBackground() {
+    const container = document.getElementById('dynamic-background');
+    if (!container) return;
+
+    const svgNS = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("width", "100%");
+    svg.setAttribute("height", "100%");
+    svg.setAttribute("viewBox", "0 0 1920 1080");
+    svg.setAttribute("preserveAspectRatio", "xMidYMid slice");
+
+    const defs = document.createElementNS(svgNS, "defs");
+    const style = document.createElementNS(svgNS, "style");
+    style.textContent = `
+        .wave-group {
+            animation: move-wave infinite linear;
+        }
+
+        @keyframes move-wave {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-1920px);
+            }
+        }
+    `;
+    defs.appendChild(style);
+
+    const waveCount = 8;
+    for (let i = 0; i < waveCount; i++) {
+        const y = 200 + Math.random() * 1200; // Random base vertical position from 200 to 1400
+        const amplitude = 50 + Math.random() * 250; // Random amplitude from 50 to 300
+        const duration = 10 + Math.random() * 90; // Random duration from 10s to 100s
+        const opacity = 0.02 + Math.random() * 0.08; // Random opacity from 0.02 to 0.1
+
+        const path = document.createElementNS(svgNS, "path");
+        const pathId = `wave-path-${i}`;
+        path.setAttribute("id", pathId);
+
+        // A seamless path using smooth quadratic bezier curves
+        const d = `M 0,${y} s 480,${-amplitude} 960,0 s 480,${amplitude} 960,0 V 1080 H 0 Z`;
+        path.setAttribute("d", d);
+        defs.appendChild(path);
+
+        const group = document.createElementNS(svgNS, "g");
+        group.classList.add("wave-group");
+        group.style.animationDuration = `${duration}s`;
+        group.style.animationDelay = `-${i * 4}s`;
+
+        const use1 = document.createElementNS(svgNS, "use");
+        use1.setAttributeNS(null, "href", `#${pathId}`);
+        use1.setAttribute("x", "0");
+        use1.setAttribute("fill", `rgba(255, 255, 255, ${opacity})`);
+
+        const use2 = document.createElementNS(svgNS, "use");
+        use2.setAttributeNS(null, "href", `#${pathId}`);
+        use2.setAttribute("x", "1920");
+        use2.setAttribute("fill", `rgba(255, 255, 255, ${opacity})`);
+
+        group.appendChild(use1);
+        group.appendChild(use2);
+        svg.appendChild(group);
+    }
+
+    svg.appendChild(defs);
+    container.innerHTML = ''; // Clear just in case
+    container.appendChild(svg);
 }
