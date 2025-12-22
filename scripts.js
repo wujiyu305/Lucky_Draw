@@ -246,7 +246,7 @@ function stringLoader() {
         document.title = "Lucky Draw";
         document.getElementById('infoBotton').title = "Instruction";
         document.getElementById('infoTitle').innerText = "Instruction";
-        document.getElementById('infoContent').innerHTML = "<li><p>Hit \"Set List\" to set candidates, you can import candidates from a txt file, seperate multiple names with comma or new line. Duplicated names would be auto-removed.</p></li><li><p>The number of total candidates would show on the button after list set.</p></li><li><p>Then please set the number of winners for this round.</p></li><li><p>Hit \"Start\", winner names would appear on screen and change quickly. Hit \"Stop\", name would stop changing and these names are winners.</p></li><li><p>You can use the Space key on keyboard to Start/Stop.</p></li><li><p>Use \"Exp & Rem\" (Export & Remove) to export a txt file names under current time, which contains winners for this round and non-winner names. And winners would be removed to prevent them from being winner again for next round.</p></li>";
+        document.getElementById('infoContent').innerHTML = "<li><p>Hit \"Set List\" to set candidates, you can import candidates from a txt file, seperate names with comma or new line. Duplicated names would be auto-removed.</p></li><li><p>The number of total candidates would show on the button after list set.</p></li><li><p>Then please set the number of winners for this round.</p></li><li><p>Hit \"Start\", winner names would appear on screen and change quickly. Hit \"Stop\", name would stop changing and these names are winners.</p></li><li><p>You can use the Space key on keyboard to Start/Stop.</p></li><li><p>Use \"Exp & Rem\" (Export & Remove) to export a txt file names under current time, which contains winners for this round and non-winner names. And winners would be removed to prevent them from being winner again for next round.</p></li>";
         document.getElementById('settingsBotton').title = "Settings";
         document.getElementById('settingsTitle').innerText = "Settings";
         document.getElementById('theme').innerText = "Theme";
@@ -266,7 +266,7 @@ function stringLoader() {
         document.getElementById('removeBtn').title = "Export a txt file names under current time, which contains winners for this round and non-winner names. And winners would be removed to prevent them from being winner again for next round.";
         string_setNameAlert = "Set Name List";
         string_setNameAlert_tpye = "Please Type Name List";
-        string_setNameAlert_content = "Seperate multiple names with comma or new line.";
+        string_setNameAlert_content = "Seperate names with comma or new line.";
         string_setNameAlert_left = "Type Names";
         string_setNameAlert_right = "Import TXT";
         string_setNameAlert_oneName = "You don't need a luck draw if you got only 1 candidate.";
