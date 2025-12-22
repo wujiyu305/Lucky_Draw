@@ -67,11 +67,34 @@ function listener() {
     });
     document.addEventListener('keydown', handleKeyDown);
 
-    document.getElementById('scale').addEventListener('input', function () {
+    document.getElementById('scale').addEventListener('input', function (e) {
+        const min = e.target.min;
+        const max = e.target.max;
+        const val = e.target.value;
+        const percent = ((val - min) / (max - min)) * 100;
+        e.target.style.setProperty('--fill-percent', `${percent}%`);
         displayWinners();     // 调整大小滑块时缩放 winnerBox
+    });
+
+    document.getElementById('speed').addEventListener('input', function (e) {
+        const min = e.target.min;
+        const max = e.target.max;
+        const val = e.target.value;
+        const percent = ((val - min) / (max - min)) * 100;
+        e.target.style.setProperty('--fill-percent', `${percent}%`);
     });
     window.addEventListener('resize', function () {
         displayWinners();     // 在窗口大小变化时缩放 winnerBox
+    });
+
+    // Initialize slider fill on load
+    const sliders = document.querySelectorAll('input[type="range"]');
+    sliders.forEach(slider => {
+        const min = slider.min;
+        const max = slider.max;
+        const val = slider.value;
+        const percent = ((val - min) / (max - min)) * 100;
+        slider.style.setProperty('--fill-percent', `${percent}%`);
     });
     /* 点击空白处关闭设置和信息窗口 */
     document.getElementById('overlay').addEventListener('click', function () {
@@ -117,26 +140,24 @@ function handleKeyDown(event) {
 }
 
 function setLang(language) {
+    const thumb = document.querySelector('.lang-slider-thumb');
     switch (language) {
         case 'zh': {
             lang = 'zh';
             stringLoader();
-            document.getElementById("btnChinese").disabled = true;
-            document.getElementById("btnEnglish").disabled = false;
+            if (thumb) thumb.style.transform = 'translateX(0px)';
             break;
         }
         case 'en': {
             lang = 'en';
             stringLoader();
-            document.getElementById("btnChinese").disabled = false;
-            document.getElementById("btnEnglish").disabled = true;
+            if (thumb) thumb.style.transform = 'translateX(76px)';
             break;
         }
         default: {
             lang = 'zh';
             stringLoader();
-            document.getElementById("btnChinese").disabled = true;
-            document.getElementById("btnEnglish").disabled = false;
+            if (thumb) thumb.style.transform = 'translateX(0px)';
             break;
         }
     }
@@ -241,13 +262,13 @@ function stringLoader() {
         document.getElementById('setBtn').innerText = "Set List";
         document.getElementById('setBtn').title = "Import candidate names from txt file, seperate miltiple names with comma or new line. You can also use type names for small list.";
         document.getElementById('nameBtn').title = "Show all the candicates.";
-        document.getElementById('removeBtn').innerText = "Exp & Rem";
+        document.getElementById('removeBtn').innerText = "Ex & Rm";
         document.getElementById('removeBtn').title = "Export a txt file names under current time, which contains winners for this round and non-winner names. And winners would be removed to prevent them from being winner again for next round.";
         string_setNameAlert = "Set Name List";
         string_setNameAlert_tpye = "Please Type Name List";
         string_setNameAlert_content = "Seperate multiple names with comma or new line.";
         string_setNameAlert_left = "Type Names";
-        string_setNameAlert_right = "TXT Import Names";
+        string_setNameAlert_right = "Import TXT";
         string_setNameAlert_oneName = "You don't need a luck draw if you got only 1 candidate.";
         string_setNameAlert_importFail = "Failed to set candidates from txt, please check the file.";
         string_setNameAlert_typeFail = "Failed to detect candidates, please check and try again.";
@@ -358,6 +379,19 @@ function showAlert(alerttitle, alerttext) {
         alertRightBtn.id = 'alertRightBtn';
         alertRightBtn.innerText = string_alertBtnRight;
         alert.appendChild(alertRightBtn);
+
+        // 为新创建的按钮添加高光效果的事件监听器
+        const alertButtons = alert.querySelectorAll('button');
+        alertButtons.forEach(button => {
+            button.addEventListener('mousemove', e => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                button.style.setProperty('--x', `${x}px`);
+                button.style.setProperty('--y', `${y}px`);
+            });
+        });
+
         alert.style.transform = 'scale(1)';
         alert.classList.add('blur');
         showOverlay();
@@ -405,6 +439,19 @@ function setNameAlert() {
     alertRightBtn.id = 'alertRightBtn';
     alertRightBtn.innerText = string_setNameAlert_right;
     alert.appendChild(alertRightBtn);
+
+    // 为新创建的按钮添加高光效果的事件监听器
+    const alertButtons = alert.querySelectorAll('button');
+    alertButtons.forEach(button => {
+        button.addEventListener('mousemove', e => {
+            const rect = button.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            button.style.setProperty('--x', `${x}px`);
+            button.style.setProperty('--y', `${y}px`);
+        });
+    });
+
     alert.style.transform = 'scale(1)';
     alert.classList.add('blur');
     showOverlay();
@@ -444,6 +491,19 @@ function typeNameAlert() {
     alertRightBtn.id = 'alertRightBtn';
     alertRightBtn.innerText = string_continue;
     alert.appendChild(alertRightBtn);
+
+    // 为新创建的按钮添加高光效果的事件监听器
+    const alertButtons = alert.querySelectorAll('button');
+    alertButtons.forEach(button => {
+        button.addEventListener('mousemove', e => {
+            const rect = button.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            button.style.setProperty('--x', `${x}px`);
+            button.style.setProperty('--y', `${y}px`);
+        });
+    });
+
     alert.style.transform = 'scale(1)';
     alert.classList.add('blur');
     showOverlay();
@@ -571,22 +631,25 @@ function displayWinners() {     //显示中奖人
             scaleFactor = scaleFactor * Math.pow((10 / winners.length), 0.4);    // 以 10 人中奖的的 Box 大小为基准按比例缩放
             winnerBox.style.fontSize = 64 * scaleFactor + 'px';
             winnerBox.style.margin = 20 * scaleFactor + 'px';
-            winnerBox.style.padding = 10 * Math.pow(scaleFactor, 0.4) + 'px ' + 40 * scaleFactor + 'px';
+            winnerBox.style.padding = 10 * Math.pow(scaleFactor, 0.4) + 'px ' + 60 * scaleFactor + 'px';
         }
         else if (winners.length >= 5) {
             speed = 150 * 0.9;
             winnerBox.style.fontSize = 68 * scaleFactor + 'px';
             winnerBox.style.margin = 22 * scaleFactor + 'px';
+            winnerBox.style.padding = 10 * Math.pow(scaleFactor, 0.4) + 'px ' + 60 * scaleFactor + 'px';
         }
         else if (winners.length >= 3) {
             speed = 150 * 0.7;
             winnerBox.style.fontSize = 72 * scaleFactor + 'px';
             winnerBox.style.margin = 23 * scaleFactor + 'px';
+            winnerBox.style.padding = 10 * Math.pow(scaleFactor, 0.4) + 'px ' + 60 * scaleFactor + 'px';
         }
         else {
             speed = 150 * 0.6;
             winnerBox.style.fontSize = 76 * scaleFactor + 'px';
             winnerBox.style.margin = 25 * scaleFactor + 'px';
+            winnerBox.style.padding = 10 * Math.pow(scaleFactor, 0.4) + 'px ' + 60 * scaleFactor + 'px';
         }
         winnerBox.textContent = eachWinner;
         winnersDiv.appendChild(winnerBox);

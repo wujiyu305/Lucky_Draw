@@ -19,9 +19,14 @@
         <button id="infoBotton" onclick="showInfo()">i</button>
         <div id="info" class="blur">
             <h1 id="infoTitle"></h1>
-            <div>
-                <button id="btnChinese" disabled='true' onclick="setLang('zh')">中文</button><button id="btnEnglish"
-                    onclick="setLang('en')">English</button>
+            <div class="lang-slider-container">
+                <div class="lang-slider-track">
+                    <div class="lang-slider-thumb"></div>
+                    <div class="lang-options">
+                        <div onclick="setLang('zh')">中文</div>
+                        <div onclick="setLang('en')">English</div>
+                    </div>
+                </div>
             </div>
             <ol id="infoContent"></ol>
             <p>Spark Presents</a></p>
